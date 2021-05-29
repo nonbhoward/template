@@ -11,6 +11,7 @@ path_home = path_projects.parent
 # project paths
 path_project_configure = Path(path_project, dir_configure)
 path_project_constant = Path(path_project, dir_constant)
+path_project_logs = Path(path_project, dir_logs)
 path_project_script = Path(path_project, dir_script)
 path_project_setting = Path(path_project, dir_setting)
 del dir_configure, dir_constant, dir_script, dir_setting
@@ -26,6 +27,7 @@ paths.update(
         project: {
             configure:    path_project_configure,
             constant:     path_project_constant,
+            logs:         path_project_logs,
             script:       path_project_script,
             setting:      path_project_setting}
     }
@@ -43,7 +45,8 @@ del meta, meta_details, path_name, path
 paths.update(
     {
         file: {
-            logger_config: Path(path_project_setting, file_logger_config)
+            logger_config: Path(path_project_setting, file_logger_config),
+            logger_output: Path(path_project_logs, file_logger_output)
         }
     }
 )
