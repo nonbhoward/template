@@ -1,7 +1,5 @@
-from constant.names import dir_configure
-from constant.names import dir_constant
-from constant.names import dir_script
-from constant.names import dir_setting
+from constant.keys import *
+from constant.names import *
 from os import getcwd
 from os.path import exists
 from pathlib import Path
@@ -20,20 +18,19 @@ del dir_configure, dir_constant, dir_script, dir_setting
 paths = dict()
 paths.update(
     {
-        'global': {
-            'run':          path_run,
-            'project':      path_project,
-            'projects':     path_projects,
-            'home':         path_home},
-        'project': {
-            'configure':    path_project_configure,
-            'constant':     path_project_constant,
-            'script':       path_project_script,
-            'setting':      path_project_setting}
+        global_: {
+            run:          path_run,
+            project:      path_project,
+            projects:     path_projects,
+            home:         path_home},
+        project: {
+            configure:    path_project_configure,
+            constant:     path_project_constant,
+            script:       path_project_script,
+            setting:      path_project_setting}
     }
 )
 del path_run, path_project, path_projects, path_home
-del path_project_configure, path_project_constant, path_project_script, path_project_setting
 # verify paths
 for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
@@ -42,4 +39,13 @@ for meta, meta_details in paths.items():
             print(f'error, path does not exist at {path}')
             exit()
 del meta, meta_details, path_name, path
+# append files at paths
+paths.update(
+    {
+        file: {
+            logger_config: Path(path_project_setting, file_logger_config)
+        }
+    }
+)
+del path_project_configure, path_project_constant, path_project_script, path_project_setting
 pass
