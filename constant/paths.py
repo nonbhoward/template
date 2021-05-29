@@ -37,6 +37,9 @@ del path_project_configure, path_project_constant, path_project_script, path_pro
 # verify paths
 for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
-        print(f'{meta} path name is {path_name} for path {path}')
+        print(f'checking if {meta} path name {path_name} exists')
+        if not exists(path):
+            print(f'error, path does not exist at {path}')
+            exit()
 del meta, meta_details, path_name, path
 pass
