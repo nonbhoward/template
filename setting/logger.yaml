@@ -31,11 +31,11 @@ formatters:
   verbose:
     datefmt: '%Y-%m-%d %H:%M:%S,uuu'
     format: '%(asctime)s - %(name)s - %(levelname)s - %(module)s - %(lineno)d - %(funcName)s - %(message)s'
-    validate: True
+    validate: yes
   brief:
     datefmt: '%Y-%m-%d %H:%M:%S'
     format: '%(asctime)s - %(levelname)s - %(message)s'
-    validate: True
+    validate: yes
 
 # handlers -
 #   the corresponding value will be a dict in which each key is a
@@ -50,8 +50,38 @@ handlers:
   file:
     backupCount: 2
     class: logging.handlers.RotatingFileHandler
+    encoding: utf8
     filename: event.log
     filters: [unfiltered]
     formatter: verbose
     level: INFO
     maxBytes: 100000000
+
+# loggers -
+#   the corresponding value will be a dict in which each key is a logger
+#   name and each value is a dict describing how to configure the
+#   corresponding Logger instance.
+loggers:
+  # The configuring dict is searched for the following keys:
+  #   filters (optional). A list of ids of the filters for this logger.
+  #   handlers (optional). A list of ids of the handlers for this logger.
+  #   level (optional). The level of the logger.
+  #   propagate (optional). The propagation setting of the logger.
+  root:
+    filters: [unfiltered]
+    handlers: [file]
+    incremental: no
+    level: NOTSET
+  non-root:
+    filters: [unfiltered]
+    handlers: [file]
+    incremental: no
+    level: INFO
+    propagate: no
+
+
+
+logger_root:
+  handlers: [file]
+  level: NOTSET
+  propogate: yes
