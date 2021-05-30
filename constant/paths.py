@@ -36,7 +36,7 @@ del path_run, path_project, path_projects, path_home
 # verify paths
 for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
-        print(f'checking if {meta} path name {path_name} exists')
+        print(f'checking if {meta} path name {path_name} exists at {path}')
         if not exists(path):
             print(f'error, path does not exist at {path}')
             exit()
