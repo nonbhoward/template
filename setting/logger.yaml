@@ -79,9 +79,7 @@ loggers:
     level: INFO
     propagate: no
 
-
-
 logger_root:
   handlers: [file]
-  level: NOTSET
+  level: INFO
   propogate: yes
