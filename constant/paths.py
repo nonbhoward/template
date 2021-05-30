@@ -4,39 +4,42 @@ from os import getcwd
 from os.path import exists
 from pathlib import Path
 # global paths
-path_run = Path(getcwd())
-path_project = path_run.parent
-path_projects = path_project.parent
-path_home = path_projects.parent
+path_to_running_script = Path(getcwd())
+path_to_project = path_to_running_script.parent
+path_to_projects = path_to_project.parent
+path_to_home = path_to_projects.parent
 # project paths
-path_project_configure = Path(path_project, dir_configure)
-path_project_constant = Path(path_project, dir_constant)
-path_project_logs = Path(path_project, dir_logs)
-path_project_script = Path(path_project, dir_script)
-path_project_setting = Path(path_project, dir_setting)
+path_to_project_configure_dir = Path(path_to_project, dir_configure)
+path_to_project_constant_dir = Path(path_to_project, dir_constant)
+path_to_project_logs_dir = Path(path_to_project, dir_logs)
+path_to_project_script_dir = Path(path_to_project, dir_script)
+path_to_project_setting_dir = Path(path_to_project, dir_setting)
 del dir_configure, dir_constant, dir_script, dir_setting
+# file paths
+path_to_file_logger_config = Path(path_to_project_setting_dir, file_logger_config)
+path_to_file_logger_output = Path(path_to_project_logs_dir, file_logger_output)
 # save paths to dict and append files at paths
 paths = dict()
 paths.update(
     {
         global_: {
-            run:          path_run,
-            project:      path_project,
-            projects:     path_projects,
-            home:         path_home},
+            run:            path_to_running_script,
+            project:        path_to_project,
+            projects:       path_to_projects,
+            home:           path_to_home},
         project: {
-            configure:    path_project_configure,
-            constant:     path_project_constant,
-            logs:         path_project_logs,
-            script:       path_project_script,
-            setting:      path_project_setting},
+            configure:      path_to_project_configure_dir,
+            constant:       path_to_project_constant_dir,
+            logs:           path_to_project_logs_dir,
+            script:         path_to_project_script_dir,
+            setting:        path_to_project_setting_dir},
         file: {
-            logger_config: Path(path_project_setting, file_logger_config),
-            logger_output: Path(path_project_logs, file_logger_output)
+            logger_config:  path_to_file_logger_config,
+            logger_output:  path_to_file_logger_output
         }
     }
 )
-del path_run, path_project, path_projects, path_home
+del path_to_running_script, path_to_project, path_to_projects, path_to_home
 # verify paths
 for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
@@ -46,5 +49,5 @@ for meta, meta_details in paths.items():
             print(f'exiting program')
             exit()
 del meta, meta_details, path_name, path
-del path_project_configure, path_project_constant, path_project_script, path_project_setting
+del path_to_project_configure_dir, path_to_project_constant_dir, path_to_project_script_dir, path_to_project_setting_dir
 pass
