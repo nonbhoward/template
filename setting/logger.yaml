@@ -54,8 +54,9 @@ handlers:
     filename: event.log
     filters: [unfiltered]
     formatter: verbose
-    level: INFO
-    maxBytes: 100000000
+    level: DEBUG
+    #            k  M  G  T
+    maxBytes: 10000000
 
 # loggers -
 #   the corresponding value will be a dict in which each key is a logger
@@ -71,15 +72,10 @@ loggers:
     filters: [unfiltered]
     handlers: [file]
     incremental: no
-    level: NOTSET
+    level: DEBUG
   non-root:
     filters: [unfiltered]
     handlers: [file]
     incremental: no
-    level: INFO
+    level: DEBUG
     propagate: no
-
-logger_root:
-  handlers: [file]
-  level: INFO
-  propogate: yes
