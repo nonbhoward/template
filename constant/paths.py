@@ -15,7 +15,7 @@ path_project_logs = Path(path_project, dir_logs)
 path_project_script = Path(path_project, dir_script)
 path_project_setting = Path(path_project, dir_setting)
 del dir_configure, dir_constant, dir_script, dir_setting
-# save paths to dict
+# save paths to dict and append files at paths
 paths = dict()
 paths.update(
     {
@@ -29,7 +29,11 @@ paths.update(
             constant:     path_project_constant,
             logs:         path_project_logs,
             script:       path_project_script,
-            setting:      path_project_setting}
+            setting:      path_project_setting},
+        file: {
+            logger_config: Path(path_project_setting, file_logger_config),
+            logger_output: Path(path_project_logs, file_logger_output)
+        }
     }
 )
 del path_run, path_project, path_projects, path_home
@@ -38,17 +42,9 @@ for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
         print(f'checking if {meta} path name {path_name} exists at {path}')
         if not exists(path):
-            print(f'error, path does not exist at {path}')
+            print(f'error, expected path does not exist at {path}')
+            print(f'exiting program')
             exit()
 del meta, meta_details, path_name, path
-# append files at paths
-paths.update(
-    {
-        file: {
-            logger_config: Path(path_project_setting, file_logger_config),
-            logger_output: Path(path_project_logs, file_logger_output)
-        }
-    }
-)
 del path_project_configure, path_project_constant, path_project_script, path_project_setting
 pass
