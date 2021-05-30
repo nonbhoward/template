@@ -4,6 +4,7 @@ import logging.config
 # initialize logger, start
 # configure the logger
 logging.config.dictConfig(logger_config_dict)
+del logger_config_dict
 # initialize the local logger
 log = logging.getLogger(__name__)
 
@@ -16,3 +17,4 @@ log.debug(f'test debug')
 log.warning(f'test warning')
 log.error(f'test error')
 # initialize logger, stop
+pass
