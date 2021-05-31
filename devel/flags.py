@@ -1,0 +1,2 @@
+# development flags
+DEBUG = False
