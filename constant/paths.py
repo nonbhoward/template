@@ -11,11 +11,14 @@ path_to_home = path_to_projects.parent
 # project paths
 path_to_project_configure_dir = Path(path_to_project, dir_configure)
 path_to_project_constant_dir = Path(path_to_project, dir_constant)
+path_to_project_data_dir = Path(path_to_project, dir_data)
 path_to_project_logs_dir = Path(path_to_project, dir_logs)
 path_to_project_script_dir = Path(path_to_project, dir_script)
 path_to_project_setting_dir = Path(path_to_project, dir_setting)
 del dir_configure, dir_constant, dir_script, dir_setting
 # file paths
+path_to_file_json_dump = Path(path_to_project_data_dir, file_json_dump)
+path_to_file_json_load = Path(path_to_project_data_dir, file_json_load)
 path_to_file_logger_config = Path(path_to_project_setting_dir, file_logger_config)
 path_to_file_logger_output = Path(path_to_project_logs_dir, file_logger_output)
 # save paths to dict and append files at paths
@@ -30,10 +33,13 @@ paths.update(
         project: {
             configure:      path_to_project_configure_dir,
             constant:       path_to_project_constant_dir,
+            data:           path_to_project_data_dir,
             logs:           path_to_project_logs_dir,
             script:         path_to_project_script_dir,
             setting:        path_to_project_setting_dir},
         file: {
+            json_dump:      path_to_file_json_dump,
+            json_load:      path_to_file_json_load,
             logger_config:  path_to_file_logger_config,
             logger_output:  path_to_file_logger_output
         }
@@ -45,7 +51,9 @@ for meta, meta_details in paths.items():
     for path_name, path in meta_details.items():
         print(f'checking if {meta} path name {path_name} exists at {path}')
         if not exists(path):
-            print(f'error, expected path does not exist at {path}')
+            print(f'expected path does not exist at {path}')
+            if meta == file:
+                continue
             print(f'exiting program')
             exit()
 del meta, meta_details, path_name, path
