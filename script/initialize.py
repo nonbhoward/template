@@ -1,10 +1,10 @@
-from configure.logger import config_for_log
+from configure.logger import logger_configuration
 from devel.flags import DEBUG
 import logging.config
 
 # configure the logger
-logging.config.dictConfig(config_for_log)
-del config_for_log
+logging.config.dictConfig(logger_configuration)
+del logger_configuration
 
 # get some loggers
 logr = logging.getLogger()
