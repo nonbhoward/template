@@ -2,11 +2,12 @@ from constant.paths import paths
 import yaml
 
 # read the configuration
-logger_config_file = paths['file']['logger config']
-with open(logger_config_file, 'r') as lcf:
-    log_config = yaml.safe_load(lcf)
-del lcf, logger_config_file
+yaml_config = paths['file']['logger config']
+with open(yaml_config, 'r') as yc:
+    config_for_log = yaml.safe_load(yc)
+del yc, yaml_config
 
 # direct the logger to use the logging path
-log_config['handlers']['file']. \
+config_for_log['handlers']['file'].\
     update(filename=paths['file']['logger output'])
+pass
