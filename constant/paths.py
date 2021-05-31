@@ -40,7 +40,7 @@ paths.update(
         file: {
             json_dump:      path_to_file_json_dump,
             json_load:      path_to_file_json_load,
-            logger_config:  path_to_file_logger_config,
+            yaml_logger_config:  path_to_file_logger_config,
             logger_output:  path_to_file_logger_output
         }
     }
