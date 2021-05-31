@@ -17,10 +17,9 @@ path_to_project_script_dir = Path(path_to_project, dir_script)
 path_to_project_setting_dir = Path(path_to_project, dir_setting)
 del dir_configure, dir_constant, dir_script, dir_setting
 # file paths
-path_to_file_json_dump = Path(path_to_project_data_dir, file_json_dump)
-path_to_file_json_load = Path(path_to_project_data_dir, file_json_load)
-path_to_file_logger_config = Path(path_to_project_setting_dir, file_logger_config)
-path_to_file_logger_output = Path(path_to_project_logs_dir, file_logger_output)
+path_to_file_json_cache = Path(path_to_project_data_dir, fn_json)
+path_to_file_logger_config = Path(path_to_project_setting_dir, fn_logger_config)
+path_to_file_logger_output = Path(path_to_project_logs_dir, fn_logger_output)
 # save paths to dict and append files at paths
 paths = dict()
 paths.update(
@@ -38,8 +37,7 @@ paths.update(
             script:         path_to_project_script_dir,
             setting:        path_to_project_setting_dir},
         file: {
-            json_dump:      path_to_file_json_dump,
-            json_load:      path_to_file_json_load,
+            json_file:      path_to_file_json_cache,
             yaml_logger_config:  path_to_file_logger_config,
             logger_output:  path_to_file_logger_output
         }
