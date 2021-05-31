@@ -14,7 +14,6 @@ script = 'script'
 setting = 'setting'
 # file path keys
 file = 'file'
-json_dump = 'json dump'
-json_load = 'json load'
+json_file = 'json cache'
 logger_output = 'logger output'
 yaml_logger_config = 'yaml logger config'
