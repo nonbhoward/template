@@ -1,36 +1,10 @@
 # global path keys
 global_ = 'global'
-run = 'run'
+home = 'home'
 project = 'project'
 projects = 'projects'
-# project path keys
-# project = 'project'  # intentionally commented
-configure = 'configure'
-constant = 'constant'
-data = 'data'
-logs = 'logs'
-script = 'script'
-setting = 'setting'
-# home path keys
-home = 'home'
-desktop = 'Desktop'
-documents = 'Documents'
-downloads = 'Downloads'
-music = 'Music'
-pictures = 'Pictures'
-videos = 'Videos'
-# root path keys
 root = 'root'
-dev = 'dev'
-etc = 'etc'
-media = 'media'
-mnt = 'mnt'
-opt = 'opt'
-proc = 'proc'
-snap = 'snap'
-tmp = 'tmp'
-usr = 'usr'
-var = 'var'
+run = 'run'
 # file path keys
 file = 'file'
 json_file = 'json cache'
