@@ -8,6 +8,12 @@ path_to_running_script = Path(getcwd())
 path_to_project = path_to_running_script.parent
 path_to_projects = path_to_project.parent
 path_to_home = path_to_projects.parent
+path_to_desktop = Path(path_to_home, dir_desktop)
+path_to_documents = Path(path_to_home, dir_documents)
+path_to_downloads = Path(path_to_home, dir_downloads)
+path_to_music = Path(path_to_home, dir_music)
+path_to_pictures = Path(path_to_home, dir_pictures)
+path_to_videos = Path(path_to_home, dir_videos)
 # project paths
 path_to_project_configure_dir = Path(path_to_project, dir_configure)
 path_to_project_constant_dir = Path(path_to_project, dir_constant)
@@ -28,7 +34,13 @@ paths.update(
             run:            path_to_running_script,
             project:        path_to_project,
             projects:       path_to_projects,
-            home:           path_to_home},
+            home:           path_to_home,
+            desktop:        path_to_desktop,
+            documents:      path_to_documents,
+            downloads:      path_to_downloads,
+            music:          path_to_music,
+            pictures:       path_to_pictures,
+            videos:         path_to_videos},
         project: {
             configure:      path_to_project_configure_dir,
             constant:       path_to_project_constant_dir,
