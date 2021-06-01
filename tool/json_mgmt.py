@@ -10,15 +10,15 @@ log = logging.getLogger(__name__)
 
 class JsonManager:
     def __init__(self):
-        self.data_path = paths['project']['data']
+        self.project_data = paths['project']['data']
         self.cache = paths['file']['json cache']
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
     def erase_data(self):
         # get a list of all files in the data path
-        log.info(f'erasing all files in {self.data_path}')
+        log.info(f'erasing all files in {self.project_data}')
         data_files = list()
-        for root, _, files in walk(self.data_path):
+        for root, _, files in walk(self.project_data):
             for file in files:
                 file_path = Path(root, file)
                 log.info(f'file found : {file_path}')
