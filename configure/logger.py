@@ -7,7 +7,7 @@ with open(yaml_config, 'r') as yc:
     logger_configuration = yaml.safe_load(yc)
 del yc, yaml_config
 
-# direct the logger to use the logging path
+# update the logger to use the logging path
 logger_configuration['handlers']['file'].\
     update(filename=paths['file']['logger output'])
 pass
