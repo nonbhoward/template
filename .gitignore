@@ -2,8 +2,7 @@
 # Extensions
 # Files
 # .gitignore
-*cache*
-generate*
+test*
 # Folders
 .idea
 
