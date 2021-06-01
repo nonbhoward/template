@@ -1,7 +1,7 @@
+from constant.names import fn_json
 from constant.paths import paths
 from json import dumps, loads
-from os import remove
-from os import walk
+from os import remove, walk
 from os.path import exists
 from pathlib import Path
 import logging
@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 class JsonManager:
     def __init__(self):
         self.project_data = paths['project']['data']
-        self.cache = paths['file']['json cache']
+        self.cache = Path(self.project_data, fn_json)
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
     def erase_data(self):
