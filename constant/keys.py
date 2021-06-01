@@ -4,6 +4,12 @@ run = 'run'
 project = 'project'
 projects = 'projects'
 home = 'home'
+desktop = 'Desktop'
+documents = 'Documents'
+downloads = 'Downloads'
+music = 'Music'
+pictures = 'Pictures'
+videos = 'Videos'
 # project path keys
 # project = 'project'  # intentionally commented
 configure = 'configure'
