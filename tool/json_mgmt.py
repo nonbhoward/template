@@ -16,23 +16,26 @@ class JsonManager:
 
     def erase_data(self):
         # get a list of all files in the data path
+        log.info(f'erasing all files in {self.data_path}')
         data_files = list()
         for root, _, files in walk(self.data_path):
             for file in files:
-                data_files.append(Path(root, file))
+                file_path = Path(root, file)
+                log.info(f'file found : {file_path}')
+                data_files.append(file_path)
         # delete each file in the data path
         for data_file in data_files:
             if exists(data_file):
+                log.info(f'deleting file {data_file}')
                 remove(data_file)
 
     def read(self, file='') -> dict:
         file = self.cache if not file else file
         if not exists(file):
-            log.error(f'error with path {file}')
-            log.error(f'path does not exist, exiting')
+            log.error(f'exiting program, required path does not exist at {file}')
             exit()
         with open(file, 'r') as jf:
-            log.debug(f'loading json from file {file}')
+            log.info(f'loading json from file {file}')
             contents = loads(jf.read())
         return contents
 
@@ -41,6 +44,7 @@ class JsonManager:
         if exists(file_to_write):
             log.warning(f'overwriting file at {file_to_write}')
         with open(file_to_write, 'w') as ftw:
+            log.info(f'writing to disk from {ftw}')
             ftw.write(dumps(data))
 
     @property
