@@ -9,9 +9,17 @@ log = logging.getLogger(__name__)
 
 
 class JsonManager:
-    def __init__(self):
+    def __init__(self, item=''):
+        """
+        read and write json data from/to disk
+        :param item: must be an empty string, a pathlib.Path, or a dict
+        """
+        # init
         self.project_data = paths['project']['data']
         self.cache = Path(self.project_data, fn_json)
+        # startup
+        self.dict = item if is_dict_(item) else None
+        self.dict = self.read(item) if is_path_(item) else self.read()
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
     def erase_data(self):
@@ -54,3 +62,22 @@ class JsonManager:
     @cache.setter
     def cache(self, value):
         self._path_to_data = value
+
+    @property
+    def dict(self):
+        return self._dict
+
+    @dict.setter
+    def dict(self, value):
+        # FIXME can cause excessive writes, re-work
+        if value is not None:
+            self.write(value)
+        self._dict = value
+
+
+def is_dict_(item) -> bool:
+    return True if isinstance(item, dict) else False
+
+
+def is_path_(item) -> bool:
+    return True if isinstance(item, Path) else False
