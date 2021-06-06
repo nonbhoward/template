@@ -65,14 +65,14 @@ class JsonManager:
 
     @property
     def data(self):
-        return self._dict
+        return self._data
 
     @data.setter
     def data(self, value):
         # FIXME can cause excessive writes, re-work
         if value is not None:
             self.write(value)
-        self._dict = value
+        self._data = value
 
 
 def is_dict_(item) -> bool:
