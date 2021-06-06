@@ -18,8 +18,8 @@ class JsonManager:
         self.project_data = paths['project']['data']
         self.cache = Path(self.project_data, fn_json)
         # startup
-        self.dict = item if is_dict_(item) else None
-        self.dict = self.read(item) if is_path_(item) else self.read()
+        self.data = item if item else None
+        self.data = self.read(item) if is_path_(item) else self.read()
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
     def erase_data(self):
@@ -64,11 +64,11 @@ class JsonManager:
         self._path_to_data = value
 
     @property
-    def dict(self):
+    def data(self):
         return self._dict
 
-    @dict.setter
-    def dict(self, value):
+    @data.setter
+    def data(self, value):
         # FIXME can cause excessive writes, re-work
         if value is not None:
             self.write(value)
