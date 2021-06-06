@@ -69,7 +69,7 @@ class JsonManager:
 
     @data.setter
     def data(self, value):
-        # FIXME can cause excessive writes, re-work
+        # FIXME can cause excessive writes, re-work (resolved)
         if value is not None:
             self.write(value)
         self._data = value
