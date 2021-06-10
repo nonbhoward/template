@@ -30,7 +30,7 @@ path_roots = {
 # verify home path integrity before continuing
 username = getuser()
 if not platform == 'win32' and not path_roots[home].parts[1] == home or \
-        not username == path_roots[home].parts[2]:
+        not path_roots[home].parts[2] == username:
     print(f'bad path to home : {path_roots[home]}')
     exit()
 
