@@ -1,4 +1,12 @@
-# files
+# config files
+fn_config_logger = 'logger.yaml'
+fn_config_paths = 'paths.yaml'
+
+# data files
 fn_json = 'cache.json'
-fn_logger_config = 'logger.yaml'
-fn_logger_output = 'event.log'
+
+# log files
+fn_log = 'event.log'
+
+# setting directory
+dn_setting = 'setting'
