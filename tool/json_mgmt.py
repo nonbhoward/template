@@ -6,27 +6,29 @@ from os.path import exists
 from pathlib import Path
 import logging
 log = logging.getLogger(__name__)
+data_path = paths['project']['data']
+default_cache = Path(paths['project']['data'], fn_json)
 
 
 class JsonManager:
-    def __init__(self, item=''):
+    def __init__(self, item='', filepath=''):
         """
-        read and write json data from/to disk
-        :param item: must be an empty string, a pathlib.Path, or a dict
+        :param item: path or data
+        :param filepath: optional filepath, use to manage multiple cache in parallel
         """
         # init
-        self.project_data = paths['project']['data']
-        self.cache = Path(self.project_data, fn_json)
+        self.cache = filepath if filepath else default_cache
         # startup
         self.data = item if item else None
         self.data = self.read(item) if is_path_(item) else self.read()
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
-    def erase_data(self):
+    @classmethod
+    def erase_data(cls):
         # get a list of all files in the data path
-        log.info(f'erasing all files in {self.project_data}')
+        log.info(f'erasing all files in {data_path}')
         data_files = list()
-        for root, _, files in walk(self.project_data):
+        for root, _, files in walk(data_path):
             for file in files:
                 file_path = Path(root, file)
                 log.info(f'file found : {file_path}')
@@ -34,7 +36,7 @@ class JsonManager:
         # delete each file in the data path
         for data_file in data_files:
             if exists(data_file):
-                log.info(f'deleting file {data_file}')
+                log.warning(f'deleting file {data_file}')
                 remove(data_file)
 
     def read(self, file='') -> dict:
