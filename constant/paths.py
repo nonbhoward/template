@@ -1,4 +1,6 @@
+from configure.paths import paths_configuration
 from constant.keys import *
+from getpass import getuser
 from os import getcwd, walk
 from os.path import exists
 from pathlib import Path
@@ -23,6 +25,13 @@ path_roots = {
     home:       path_to_home,
     project:    path_to_project,
     root:       path_to_root}
+
+# verify home path integrity before continuing
+username = getuser()
+if not path_roots[home].parts[1] == home or \
+        not username == path_roots[home].parts[2]:
+    print(f'bad path to home : {path_roots[home]}')
+    exit()
 
 # path roots : project, home, and root
 for path_name, path_root in path_roots.items():
