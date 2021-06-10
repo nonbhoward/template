@@ -4,6 +4,7 @@ from getpass import getuser
 from os import getcwd, walk
 from os.path import exists
 from pathlib import Path
+from sys import platform
 
 # global paths
 paths = dict()
@@ -28,7 +29,7 @@ path_roots = {
 
 # verify home path integrity before continuing
 username = getuser()
-if not path_roots[home].parts[1] == home or \
+if not platform == 'win32' and not path_roots[home].parts[1] == home or \
         not username == path_roots[home].parts[2]:
     print(f'bad path to home : {path_roots[home]}')
     exit()
