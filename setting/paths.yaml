@@ -2,7 +2,7 @@
 #   a specific root, remove it from this list
 #   TODO not implemented
 enabled roots:
-  [run, project, projects, home, root]
+  [root, home, projects, project, run]
 
 # operating system specific, user-defined paths
 #   roots can be used to start a path
