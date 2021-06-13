@@ -16,6 +16,7 @@ sym_links = dict()
 sym_links['relative parts'] = dict()
 sym_links['relative parts'].update({
     'configure logger':     ['configure', 'logger.py'],
+    'configure paths':      ['configure', 'paths.py'],
     'constant keys':        ['constant', 'keys.py'],
     'constant names':       ['constant', 'names.py'],
     'constant paths':       ['constant', 'paths.py'],
@@ -25,6 +26,7 @@ sym_links['relative parts'].update({
     'log path':             ['logs'],
     'script initialize':    ['script', 'initialize.py'],
     'setting logger':       ['setting', 'logger.yaml'],
+    'setting paths':        ['setting', 'paths.yaml'],
     'tool json':            ['tool', 'json_mgmt.py']
 })
 
