@@ -1,2 +1,12 @@
-# TODO placeholder in case paths dict needs modifications during init
-TODO: yes
+# a list of roots that will be populated, to prevent population of
+#   a specific root, remove it from this list
+#   TODO not implemented
+enabled roots:
+  [run, project, projects, home, root]
+
+# operating system specific, user-defined paths
+#   roots can be used to start a path
+#   TODO not implemented
+additional paths:
+  win32:
+    bash aliases: [C:\, Program Files, Git, etc, profile.d, aliases.sh]
