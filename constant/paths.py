@@ -1,51 +1,132 @@
 from configure.paths import paths_configuration
-from constant.keys import *
+from constant.keys import files
+from constant.keys import home
+from constant.keys import project
+from constant.keys import projects
+from constant.keys import root
+from constant.keys import script
 from getpass import getuser
 from os import getcwd, walk
 from os.path import exists
 from pathlib import Path
 from sys import platform
 
+
+class Paths:
+    def __init__(self, config):
+        self.config = config
+        # dicts
+        self._config = dict()
+        self._files = dict()
+        self._paths = dict()
+
+    @property
+    def config(self) -> dict:
+        return self._config
+
+    @config.setter
+    def config(self, value):
+        self._config = value
+
+    @property
+    def files(self) -> dict:
+        return self._files
+
+    @files.setter
+    def files(self, value):
+        self._files = value
+
+    @property
+    def _home(self) -> Path:
+        return self.paths[home]
+
+    @_home.setter
+    def _home(self, value):
+        self.paths[home] = value
+
+    @property
+    def paths(self):
+        return self._paths
+
+    @paths.setter
+    def paths(self, value):
+        if not isinstance(value, Path):
+            coerce_path_(value)
+        self._paths = value
+
+    @property
+    def _project(self) -> Path:
+        return self.paths[project]
+
+    @_project.setter
+    def _project(self, value):
+        self.paths[project] = value
+
+    @property
+    def _projects(self) -> Path:
+        return self.paths[projects]
+
+    @_projects.setter
+    def _projects(self, value):
+        self.paths[projects] = value
+
+    @property
+    def _root(self) -> Path:
+        return self.paths[root]
+
+    @_root.setter
+    def _root(self, value):
+        self.paths[root] = value
+
+    @property
+    def _script(self) -> Path:
+        return self.paths[script]
+
+    @_script.setter
+    def _script(self, value):
+        self.paths[script] = value
+
+
+def coerce_path_(value):
+    print(f'warning, {value} not of type Path')
+    try:
+        value = Path(value)
+    except TypeError as err:
+        print(f'unable to construct Path from {value}')
+        for err in err.args:
+            print(err)
+        exit()
+
+
 # global paths
-paths = dict()
-path_to_running_script = Path(getcwd())
-path_to_project = path_to_running_script.parent
-path_to_projects = path_to_project.parent
-path_to_home = path_to_projects.parent
-path_to_root = Path(path_to_home.parts[0])
+paths = Paths(paths_configuration)
+paths.paths[script] = Path(getcwd())
+paths.paths[project] = paths.paths[script].parent
+paths.paths[projects] = paths.paths[project].parent
+paths.paths[home] = paths.paths[projects].parent
+paths.paths[root] = paths.paths[home].parts[0]
 
-# define and save the global path root
-paths.update({
-    global_: {
-        run:        path_to_running_script,
-        project:    path_to_project,
-        projects:   path_to_projects}})
-
-# define other path roots
-path_roots = {
-    home:       path_to_home,
-    project:    path_to_project,
-    root:       path_to_root}
 
 # verify home path integrity before continuing
-username = getuser()
-if not platform == 'win32' and not path_roots[home].parts[1] == home or \
-        not path_roots[home].parts[2] == username:
-    print(f'bad path to home : {path_roots[home]}')
-    exit()
+# TODO REDO
 
-# path roots : project, home, and root
-for path_name, path_root in path_roots.items():
-    paths[path_name] = dict()
+# populate files with enabled roots
+for path_key, path_root in paths.paths.items():
+    if not isinstance(path_root, Path):
+        print(f'warning, {path_root} not of type Path')
+        continue
     for root_, dirs_, _ in walk(path_root):
         for dir_ in dirs_:
-            paths[path_name].update({dir_: Path(root_, dir_)})
+            paths.files.update({dir_: Path(root_, dir_)})
+            # paths[path_key].update({dir_: Path(root_, dir_)})
         break
 
 # verify paths
 for meta, meta_details in paths.items():
-    for path_name, path_root in meta_details.items():
-        print(f'checking if {meta} path name {path_name} exists at {path_root}')
+    if meta is setting:
+        continue
+    for path_key, path_root in meta_details.items():
+        print(f'checking if {meta} path name {path_key} exists at {path_root}')
         if not exists(path_root):
             print(f'expected path does not exist at {path_root}')
             if meta == file:
