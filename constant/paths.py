@@ -13,27 +13,26 @@ from sys import platform
 
 
 class Paths:
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, configuration):
+        self.configuration = configuration
         # dicts
-        self._config = dict()
         self._files = dict()
         self._paths = dict()
 
     @property
-    def config(self) -> dict:
-        return self._config
+    def configuration(self) -> dict:
+        return self._configuration
 
-    @config.setter
-    def config(self, value):
-        self._config = value
+    @configuration.setter
+    def configuration(self, value):
+        self._configuration = value
 
     @property
-    def files(self) -> dict:
+    def dirs(self) -> dict:
         return self._files
 
-    @files.setter
-    def files(self, value):
+    @dirs.setter
+    def dirs(self, value):
         self._files = value
 
     @property
@@ -99,38 +98,36 @@ def coerce_path_(value):
 
 
 # global paths
-paths = Paths(paths_configuration)
-paths.paths[script] = Path(getcwd())
-paths.paths[project] = paths.paths[script].parent
-paths.paths[projects] = paths.paths[project].parent
-paths.paths[home] = paths.paths[projects].parent
-paths.paths[root] = paths.paths[home].parts[0]
+path = Paths(paths_configuration)
+path.paths[script] = Path(getcwd())
+path.paths[project] = path.paths[script].parent
+path.paths[projects] = path.paths[project].parent
+path.paths[home] = path.paths[projects].parent
+path.paths[root] = Path(path.paths[home].parts[0])
 
 
 # verify home path integrity before continuing
 # TODO REDO
 
 # populate files with enabled roots
-for path_key, path_root in paths.paths.items():
-    if not isinstance(path_root, Path):
+for path_key, path_root in path.paths.items():
+    # exclude non paths, exclude non-enabled (toggle via yaml)
+    if not isinstance(path_root, Path) or path_key not in path.configuration['enabled roots']:
         print(f'warning, {path_root} not of type Path')
         continue
+    # init a new files parent container
+    path.dirs[path_key] = dict()
     for root_, dirs_, _ in walk(path_root):
         for dir_ in dirs_:
-            paths.files.update({dir_: Path(root_, dir_)})
+            path.dirs[path_key].update({dir_: Path(root_, dir_)})
             # paths[path_key].update({dir_: Path(root_, dir_)})
         break
 
 # verify paths
-for meta, meta_details in paths.items():
-    if meta is setting:
-        continue
-    for path_key, path_root in meta_details.items():
-        print(f'checking if {meta} path name {path_key} exists at {path_root}')
-        if not exists(path_root):
-            print(f'expected path does not exist at {path_root}')
-            if meta == file:
-                continue
-            print(f'exiting program')
-            exit()
+for path_key, path_root in path.paths.items():
+    print(f'checking if {path_key} exists at {path_root}')
+    if not exists(path_root):
+        print(f'expected path does not exist at {path_root}')
+        print(f'exiting program')
+        exit()
 pass
