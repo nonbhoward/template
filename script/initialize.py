@@ -1,4 +1,4 @@
-from configure.logger import logger_configuration, paths
+from configure.logger import logger_configuration, path
 from devel.flags import DEBUG
 import logging.config
 
