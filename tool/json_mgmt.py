@@ -6,8 +6,8 @@ from os.path import exists
 from pathlib import Path
 import logging
 log = logging.getLogger(__name__)
-data_path = path['project']['data']
-default_cache = Path(path['project']['data'], fn_json)
+data_path = path.dirs['project']['data']
+default_cache = Path(path.dirs['project']['data'], fn_json)
 
 
 class JsonManager:
