@@ -1,13 +1,13 @@
 from constant.names import fn_json
-from constant.paths import paths
+from constant.paths import path
 from json import dumps, loads
 from os import remove, walk
 from os.path import exists
 from pathlib import Path
 import logging
 log = logging.getLogger(__name__)
-data_path = paths['project']['data']
-default_cache = Path(paths['project']['data'], fn_json)
+data_path = path['project']['data']
+default_cache = Path(path['project']['data'], fn_json)
 
 
 class JsonManager:
