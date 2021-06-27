@@ -4,12 +4,12 @@ from os.path import exists
 from pathlib import Path
 
 # developer provides a target project name
-target_project_name = 'demo'  # FIXME, provide a target
+target_project_name = 'flightcoordinator'  # FIXME, provide a target
 source_project_name = 'template'
 
 # construct paths
-target_project = Path(path['global']['projects'], target_project_name)
-source_project = Path(path['global']['projects'], source_project_name)
+target_project = Path(path.paths['projects'], target_project_name)
+source_project = Path(path.paths['projects'], source_project_name)
 
 # inventory of links to be created
 sym_links = dict()
