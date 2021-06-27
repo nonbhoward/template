@@ -1,4 +1,4 @@
-from constant.paths import paths
+from constant.paths import path
 from os import mkdir, symlink
 from os.path import exists
 from pathlib import Path
@@ -8,8 +8,8 @@ target_project_name = 'demo'  # FIXME, provide a target
 source_project_name = 'template'
 
 # construct paths
-target_project = Path(paths['global']['projects'], target_project_name)
-source_project = Path(paths['global']['projects'], source_project_name)
+target_project = Path(path['global']['projects'], target_project_name)
+source_project = Path(path['global']['projects'], source_project_name)
 
 # inventory of links to be created
 sym_links = dict()
