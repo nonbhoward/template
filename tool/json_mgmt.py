@@ -16,12 +16,18 @@ class JsonManager:
         :param item: path or data
         :param filepath: optional filepath, use to manage multiple cache in parallel
         """
+        jsm = self.__class__.__name__
         # init
         self.cache = filepath if filepath else default_cache
         # startup
         self.data = item if item else None
-        self.data = self.read(item) if is_path_(item) else self.read()
-        log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
+        try:
+            self.data = self.read(item) if is_path_(item) else self.read()
+        except Exception as exc:
+            for xarg in exc.args:
+                log.error(f'{xarg}')
+            print(f'error instantiating {jsm}')
+        log.info(f'{jsm} initialized with path {self.cache}')
 
     def clear_cache(self):
         remove(self.cache)
