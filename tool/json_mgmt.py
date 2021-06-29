@@ -23,6 +23,10 @@ class JsonManager:
         self.data = self.read(item) if is_path_(item) else self.read()
         log.info(f'{self.__class__.__name__} initialized with path {self.cache}')
 
+    def clear_cache(self):
+        remove(self.cache)
+        self._data = ''
+
     @classmethod
     def erase_data(cls):
         # get a list of all files in the data path
@@ -42,8 +46,8 @@ class JsonManager:
     def read(self, file='') -> dict:
         file = self.cache if not file else file
         if not exists(file):
-            log.error(f'exiting program, required path does not exist at {file}')
-            exit()
+            log.warning(f'required path does not exist at {file}')
+            return {}
         with open(file, 'r') as jf:
             log.info(f'loading json from file {file}')
             contents = loads(jf.read())
