@@ -27,22 +27,6 @@ class JsonManager:
         remove(self.cache)
         self._data = ''
 
-    @classmethod
-    def erase_data(cls):
-        # get a list of all files in the data path
-        log.info(f'erasing all files in {data_path}')
-        data_files = list()
-        for root, _, files in walk(data_path):
-            for file in files:
-                file_path = Path(root, file)
-                log.info(f'file found : {file_path}')
-                data_files.append(file_path)
-        # delete each file in the data path
-        for data_file in data_files:
-            if exists(data_file):
-                log.warning(f'deleting file {data_file}')
-                remove(data_file)
-
     def read(self, file='') -> dict:
         file = self.cache if not file else file
         if not exists(file):
