@@ -49,9 +49,7 @@ class Paths:
 
     @paths.setter
     def paths(self, value):
-        if not isinstance(value, Path):
-            coerce_path_(value)
-        self._paths = value
+        self._paths = coerce_path_(value) if not isinstance(value, Path) else value
 
     @property
     def _project(self) -> Path:
@@ -95,6 +93,7 @@ def coerce_path_(value):
         for err in err.args:
             print(err)
         exit()
+    return value
 
 
 # global paths
