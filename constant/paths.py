@@ -42,7 +42,6 @@ class Paths:
 
     @paths.setter
     def paths(self, value):
-        value = ''
         self._paths = coerce_path_(value) if not isinstance(value, Path) else value
 
     # protected
