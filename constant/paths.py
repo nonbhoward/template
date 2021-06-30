@@ -111,8 +111,11 @@ path.paths[root] = Path(path.paths[home].parts[0])
 # populate files with enabled roots
 for path_key, path_root in path.paths.items():
     # exclude non paths, exclude non-enabled (toggle via yaml)
-    if not isinstance(path_root, Path) or path_key not in path.configuration['enabled roots']:
+    if not isinstance(path_root, Path):
         print(f'warning, {path_root} not of type Path')
+        continue
+    if path_key not in path.configuration['enabled roots']:
+        print(f'warning, {path_key} is not enabled')
         continue
     # init a new files parent container
     path.dirs[path_key] = dict()
