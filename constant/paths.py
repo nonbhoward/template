@@ -16,9 +16,10 @@ class Paths:
     def __init__(self, configuration):
         self.configuration = configuration
         # dicts
-        self._files = dict()
+        self._dirs = dict()
         self._paths = dict()
 
+    # interface
     @property
     def configuration(self) -> dict:
         return self._configuration
@@ -29,19 +30,11 @@ class Paths:
 
     @property
     def dirs(self) -> dict:
-        return self._files
+        return self._dirs
 
     @dirs.setter
     def dirs(self, value):
-        self._files = value
-
-    @property
-    def _home(self) -> Path:
-        return self.paths[home]
-
-    @_home.setter
-    def _home(self, value):
-        self.paths[home] = value
+        self._dirs = value
 
     @property
     def paths(self):
@@ -49,7 +42,17 @@ class Paths:
 
     @paths.setter
     def paths(self, value):
+        value = ''
         self._paths = coerce_path_(value) if not isinstance(value, Path) else value
+
+    # protected
+    @property
+    def _home(self) -> Path:
+        return self.paths[home]
+
+    @_home.setter
+    def _home(self, value):
+        self.paths[home] = value
 
     @property
     def _project(self) -> Path:
@@ -85,13 +88,13 @@ class Paths:
 
 
 def coerce_path_(value):
-    print(f'warning, {value} not of type Path')
+    print(f'warning, value \'{value}\' not of type Path')
     try:
         value = Path(value)
-    except TypeError as err:
+    except Exception as exc:
         print(f'unable to construct Path from {value}')
-        for err in err.args:
-            print(err)
+        for arg in exc.args[0]:
+            print(arg)
         exit()
     return value
 
