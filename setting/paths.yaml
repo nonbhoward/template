@@ -1,6 +1,5 @@
 # a list of roots that will be populate the 'files' key in paths dict,
 #   to prevent population of a specific root, remove it from this list
-#   TODO not implemented
 enabled roots:
   [home, project, projects, root, run, script]
 
