@@ -43,7 +43,8 @@ class JsonManager:
             contents = loads(jf.read())
         return contents
 
-    def write(self, data: dict):
+    def write(self, data=''):
+        data = data if data else self._data
         file_to_write = self.cache
         if exists(file_to_write):
             log.warning(f'overwriting file at {file_to_write}')
