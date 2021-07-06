@@ -1,28 +1,31 @@
 from constant.names import fn_json
 from constant.paths import path
-from json import dumps, loads
-from os import remove, walk
-from os.path import exists
+from json import dumps
+from json import loads
 from pathlib import Path
 import logging
+import os
+import time
 log = logging.getLogger(__name__)
-data_path = path.dirs['project']['data']
-default_cache = Path(path.dirs['project']['data'], fn_json)
 
 
 class JsonManager:
-    def __init__(self, item='', filepath=''):
+    def __init__(self, data='', filepath=''):
         """
-        :param item: path or data
+        :param data: path or data
         :param filepath: optional filepath, use to manage multiple cache in parallel
         """
         jsm = self.__class__.__name__
         # init
-        self.cache = filepath if filepath else default_cache
+        if not os.path.exists(filepath):
+            print(f'{filepath} does not exist')
+            with open(filepath, 'w') as ftw:
+                ftw.write(dumps(''))
+        self.cache = filepath
         # startup
-        self.data = item if item else None
+        self.data = data if data else None
         try:
-            self.data = self.read(item) if is_path_(item) else self.read()
+            self.data = self.read(data) if is_path_(data) else self.read()
         except Exception as exc:
             for xarg in exc.args:
                 log.error(f'{xarg}')
@@ -30,12 +33,12 @@ class JsonManager:
         log.info(f'{jsm} initialized with path {self.cache}')
 
     def clear_cache(self):
-        remove(self.cache)
+        os.remove(self.cache)
         self._data = ''
 
     def read(self, file='') -> dict:
         file = self.cache if not file else file
-        if not exists(file):
+        if not os.path.exists(file):
             log.warning(f'required path does not exist at {file}')
             return {}
         with open(file, 'r') as jf:
@@ -46,7 +49,7 @@ class JsonManager:
     def write(self, data=''):
         data = data if data else self._data
         file_to_write = self.cache
-        if exists(file_to_write):
+        if os.path.exists(file_to_write):
             log.warning(f'overwriting file at {file_to_write}')
         with open(file_to_write, 'w') as ftw:
             log.info(f'writing to disk from {ftw}')
@@ -61,6 +64,12 @@ class JsonManager:
         self._path_to_data = value
 
     @property
+    def cache_age_hours(self):
+        cache = self.cache
+        cache_age = time.time() - os.path.getmtime(cache)
+        return cache_age / 3600
+
+    @property
     def data(self):
         return self._data
 
@@ -68,7 +77,8 @@ class JsonManager:
     def data(self, value):
         # FIXME can cause excessive writes, re-work (resolved)
         if value is not None:
-            self.write(value)
+            # self.write(value)
+            pass
         self._data = value
 
 
