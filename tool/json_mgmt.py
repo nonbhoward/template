@@ -65,8 +65,9 @@ class JsonManager:
 
     @property
     def cache_age_hours(self):
-        cache = self.cache
-        cache_age = time.time() - os.path.getmtime(cache)
+        time_create = os.path.getmttime(self.cache) if os.path.exists(self.cache) else 0
+        time_now = time.time()
+        cache_age = time_now - time_create
         return cache_age / 3600
 
     @property
