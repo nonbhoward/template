@@ -17,11 +17,11 @@ class JsonManager:
         """
         jsm = self.__class__.__name__
         # init
-        if not os.path.exists(filepath):
-            print(f'{filepath} does not exist')
-            with open(filepath, 'w') as ftw:
-                ftw.write(dumps(''))
         self.cache = filepath
+        if not os.path.exists(self.cache):
+            print(f'{self.cache} does not exist')
+            with open(self.cache, 'w') as ftw:
+                ftw.write(dumps({}))
         # startup
         self.data = data if data else None
         try:
@@ -44,7 +44,7 @@ class JsonManager:
         with open(file, 'r') as jf:
             log.info(f'loading json from file {file}')
             contents = loads(jf.read())
-        return contents
+        return contents if contents else self.data
 
     def write(self, data=''):
         data = data if data else self._data
@@ -65,7 +65,7 @@ class JsonManager:
 
     @property
     def cache_age_hours(self):
-        time_create = os.path.getmttime(self.cache) if os.path.exists(self.cache) else 0
+        time_create = os.path.getmtime(self.cache) if os.path.exists(self.cache) else 0
         time_now = time.time()
         cache_age = time_now - time_create
         return cache_age / 3600
