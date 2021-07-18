@@ -2,7 +2,7 @@
 #   to prevent population of a specific root, remove it from this list
 #   available options : home, project, projects, root, run, script
 enabled roots:
-  []
+  [project]
 
 # operating system specific, user-defined paths
 #   roots can be used to start a path
