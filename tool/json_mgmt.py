@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 
 class JsonDataManager:
-    def __init__(self, cache_filepath):
+    def __init__(self, cache_filepath, data_is_json=True):
         """
         a class handling common json file interactions
         :param cache_filepath: the address of the cache file on disk"""
@@ -18,12 +18,13 @@ class JsonDataManager:
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) else Path(project_data_path, cache_filepath)
         self._data = None
+        self._data_is_json = data_is_json
         self._cache_able_to_be_read = False
         self._refresh_age_threshold = 600
         # check if cache is readable
         if os.path.exists(self.filepath):
             with open(self.filepath, 'r') as cache:
-                cache_contents = cache.read()
+                cache_contents = loads(cache.read()) if self.data_is_json else cache.read()
                 data_unserialized = cache_contents if cache_contents else None
                 self.data = data_unserialized
                 self.readable = True if self.data else False
@@ -51,7 +52,8 @@ class JsonDataManager:
             return None
         with open(cache_file, 'r') as json_file:
             log.info(f'loading json from file {cache_file}')
-            data_unserialized = loads(json_file.read())
+            # data_unserialized = loads(json_file.read())
+            data_unserialized = json_file.read()
         self.data = data_unserialized
 
     def write(self, serializable_data):
@@ -59,14 +61,14 @@ class JsonDataManager:
         :param serializable_data: serializable data to dump to json and write to disk
         :return: None
         """
-        data_serialized = dumps(serializable_data)
-        cache_file = self.filepath
-        if os.path.exists(cache_file):
-            log.warning(f'overwriting file at {cache_file}')
-        with open(cache_file, 'w') as json_file:
-            log.info(f'writing to disk from {json_file}')
-            json_file.write(data_serialized)
-            self.data = data_serialized
+        data_to_write = dumps(serializable_data) if self.data_is_json else serializable_data
+        write_location = self.filepath
+        if os.path.exists(write_location):
+            log.warning(f'overwriting file at {write_location}')
+        with open(write_location, 'w') as file_to_write:
+            log.info(f'writing to disk from {file_to_write}')
+            file_to_write.write(data_to_write)
+            self.data = loads(data_to_write) if self.data_is_json else data_to_write
             self.readable = True
 
     @property
@@ -83,6 +85,10 @@ class JsonDataManager:
     @data.setter
     def data(self, value):
         self._data = value
+
+    @property
+    def data_is_json(self):
+        return self._data_is_json
 
     @property
     def filepath(self):
