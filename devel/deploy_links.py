@@ -4,7 +4,7 @@ from os.path import exists
 from pathlib import Path
 
 # developer provides a target project name
-target_project_name = 'flightcoordinator'  # FIXME, provide a target
+target_project_name = 'target_project'  # FIXME, provide a target
 source_project_name = 'template'
 
 # construct paths
@@ -27,7 +27,7 @@ sym_links['relative parts'].update({
     'script initialize':    ['script', 'initialize.py'],
     'setting logger':       ['setting', 'logger.yaml'],
     'setting paths':        ['setting', 'paths.yaml'],
-    'tool json':            ['tool', 'json_mgmt.py']
+    'tool json':            ['tool', 'data_management.py']
 })
 
 # build the links
