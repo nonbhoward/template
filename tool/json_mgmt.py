@@ -56,11 +56,12 @@ class JsonDataManager:
             data_unserialized = json_file.read()
         self.data = data_unserialized
 
-    def write(self, serializable_data):
+    def write(self, serializable_data=''):
         """
         :param serializable_data: serializable data to dump to json and write to disk
         :return: None
         """
+        serializable_data = serializable_data if serializable_data else self.data
         data_to_write = dumps(serializable_data) if self.data_is_json else serializable_data
         write_location = self.filepath
         if os.path.exists(write_location):
