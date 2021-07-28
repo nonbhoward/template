@@ -66,7 +66,6 @@ class CacheDataManager:
     @data.setter
     def data(self, value):
         self.write(serializable_data=value)
-        self._data = value
 
     @property
     def filepath(self):
