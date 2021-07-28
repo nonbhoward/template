@@ -11,8 +11,9 @@ log = logging.getLogger(__name__)
 class CacheDataManager:
     def __init__(self, cache_filepath, json_cache=True):
         self._data = None
-        self._filepath = cache_filepath if isinstance(cache_filepath, Path) else \
-            Path(path.dirs['project']['data'], cache_filepath)
+        self._filepath = cache_filepath \
+            if isinstance(cache_filepath, Path) \
+            else Path(path.dirs['project']['data'], cache_filepath)
         self._is_json = True if json_cache else False
         self._readable = False
         self._seconds_until_stale = 600
@@ -33,7 +34,7 @@ class CacheDataManager:
     def read(self):
         cache_file = self.filepath
         if not self._readable:
-            print_and_log(f'cache data is not readable at {cache_file}', level=logging.WARNING)
+            print(f'cache data is not readable at {cache_file}')
             return None
         with open(cache_file, 'r') as cache_file_to_read:
             log.info(f'loading json from file {cache_file}')
@@ -99,8 +100,3 @@ class CacheDataManager:
     @property
     def stale(self):
         return True if self.age_seconds > self.seconds_until_stale else False
-
-
-def print_and_log(message, level=logging.INFO):
-    print(f'{logging.getLevelName(level)} {message}')
-    log.log(level=level, msg=message)
