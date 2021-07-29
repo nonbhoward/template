@@ -73,10 +73,9 @@ class CacheDataManager:
 
     @property
     def age_seconds(self):
-        creation, exist = os.path.getmtime, os.path.exists
-        time_create = creation(self.filepath) if exist(self.filepath) else 0
-        time_now = time.time()
-        return time_now - time_create
+        creation_time_of_, exist = os.path.getmtime, os.path.exists
+        time_create = creation_time_of_(self.filepath) if exist(self.filepath) else 0
+        return time.time() - time_create
 
     @property
     def data(self):
@@ -106,12 +105,10 @@ class CacheDataManager:
     @seconds_until_stale.setter
     def seconds_until_stale(self, value):
         default_value = 600
-        value_is_int = True if isinstance(value, int) else False
-        if value_is_int:
-            self._seconds_until_stale = value
-            return
-        log.warning(f'property must be set to type int, defaulting to {default_value} seconds')
-        self._seconds_until_stale = default_value
+        if not isinstance(value, int):
+            log.warning(f'property must be set to type int, defaulting to {default_value} seconds')
+            value = default_value
+        self._seconds_until_stale = value
 
     @property
     def stale(self):
