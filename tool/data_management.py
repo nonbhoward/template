@@ -49,7 +49,7 @@ class CacheDataManager:
         cache_file = self.filepath
         if not self._readable:
             print(f'cache data is not readable at {cache_file}')
-            return None
+            return
         with open(cache_file, 'r') as cache_file_to_read:
             log.info(f'loading json from file {cache_file}')
             data_unserialized = cache_file_to_read.read()
@@ -107,9 +107,11 @@ class CacheDataManager:
     def seconds_until_stale(self, value):
         default_value = 600
         value_is_int = True if isinstance(value, int) else False
-        if not value_is_int:
-            log.warning(f'property must be set to type int, defaulting to {default_value} minutes')
-        self._seconds_until_stale = value if value_is_int else default_value
+        if value_is_int:
+            self._seconds_until_stale = value
+            return
+        log.warning(f'property must be set to type int, defaulting to {default_value} seconds')
+        self._seconds_until_stale = default_value
 
     @property
     def stale(self):
