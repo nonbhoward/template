@@ -8,19 +8,33 @@ import time
 log = logging.getLogger(__name__)
 
 
+class CacheType:
+    def __init__(self):
+        self.JSON = 'json'
+        self.RAW = 'raw'
+        self.OPTIONS = [self.JSON,
+                        self.RAW]
+        self.DEFAULT = self.JSON
+
+
+CACHE_TYPE = CacheType()
+
+
 class CacheDataManager:
-    def __init__(self, cache_filepath, json_cache=True):
+    def __init__(self, cache_filepath, cache_type=CACHE_TYPE.JSON):
         self._data = None
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) \
             else Path(path.dirs['project']['data'], cache_filepath)
-        self._is_json = True if json_cache else False
+        self._type = cache_type
         self._readable = False
         self._seconds_until_stale = 600
         if os.path.exists(self.filepath):
             with open(self.filepath, 'r') as cache:
                 cache_raw = cache.read()
-                cache_data = loads(cache_raw) if self.is_json else cache_raw
+                cache_data = loads(cache_raw) \
+                    if self.type is CACHE_TYPE.JSON \
+                    else cache_raw
                 data_unserialized = cache_data if cache_data else None
                 self._data = data_unserialized
                 self.readable = True if self.data else False
@@ -43,14 +57,18 @@ class CacheDataManager:
 
     def write(self, serializable_data=''):
         serializable_data = serializable_data if serializable_data else self.data
-        data_to_write = dumps(serializable_data) if self.is_json else serializable_data
+        data_to_write = dumps(serializable_data) \
+            if self.type is CACHE_TYPE.JSON \
+            else serializable_data
         write_location = self.filepath
         if os.path.exists(write_location):
             log.warning(f'overwriting file at {write_location}')
         with open(write_location, 'w') as file_to_write:
             log.info(f'writing to disk from {file_to_write}')
             file_to_write.write(data_to_write)
-            self._data = loads(data_to_write) if self.is_json else data_to_write
+            self._data = loads(data_to_write) \
+                if self.type is CACHE_TYPE.JSON \
+                else data_to_write
             self._readable = True
 
     @property
@@ -71,10 +89,6 @@ class CacheDataManager:
     @property
     def filepath(self):
         return self._filepath
-
-    @property
-    def is_json(self):
-        return self._is_json
 
     @property
     def readable(self):
@@ -100,3 +114,15 @@ class CacheDataManager:
     @property
     def stale(self):
         return True if self.age_seconds > self.seconds_until_stale else False
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        if value not in CACHE_TYPE.OPTIONS:
+            log.warning(f'bad value {value} for cache type, setting to default \n'
+                        f'available types are : {CACHE_TYPE.OPTIONS}')
+            value = CACHE_TYPE.DEFAULT
+        self._type = value
