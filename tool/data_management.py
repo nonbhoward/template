@@ -22,7 +22,7 @@ CACHE_TYPE = CacheType()
 
 class CacheDataManager:
     def __init__(self, cache_filepath, cache_type=CACHE_TYPE.JSON):
-        self._data = None
+        self._data = dict()
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) \
             else Path(path.dirs['project']['data'], cache_filepath)
