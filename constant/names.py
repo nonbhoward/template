@@ -1,4 +1,6 @@
 # config files
+fn_config_client = 'client.yaml'
+fn_config_hosts = 'hosts.yaml'
 fn_config_logger = 'logger.yaml'
 fn_config_paths = 'paths.yaml'
 
