@@ -1,7 +1,7 @@
-from constant.names import dn_setting
-from constant.names import fn_log
-from constant.names import fn_settings
-from constant.paths import path
+from common.names import dn_setting
+from common.names import fn_log
+from common.names import fn_settings
+from common.paths import path
 from pathlib import Path
 import os
 import yaml

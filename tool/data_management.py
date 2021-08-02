@@ -1,4 +1,4 @@
-from constant.paths import path
+from common.paths import path
 from json import dumps
 from json import loads
 from pathlib import Path

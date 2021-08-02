@@ -1,5 +1,5 @@
-from constant.names import dn_setting
-from constant.names import fn_paths_config
+from common.names import dn_setting
+from common.names import fn_paths_config
 from os import getcwd
 from os.path import exists
 from pathlib import Path

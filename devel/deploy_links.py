@@ -1,5 +1,5 @@
 from configure.settings import config
-from constant.paths import path
+from common.paths import path
 from pathlib import Path
 import os
 import shutil
