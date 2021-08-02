@@ -1,8 +1,6 @@
 # config files
-fn_config_client = 'client.yaml'
-fn_config_hosts = 'hosts.yaml'
-fn_config_logger = 'logger.yaml'
-fn_config_paths = 'paths.yaml'
+fn_settings = 'settings.yaml'
+fn_paths_config = 'paths.yaml'
 
 # data files
 fn_json = 'cache.json'

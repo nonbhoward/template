@@ -1,15 +1,12 @@
-from configure.paths import paths_configuration
-from constant.keys import files
+from configure.paths import paths_config
 from constant.keys import home
 from constant.keys import project
 from constant.keys import projects
 from constant.keys import root
 from constant.keys import script
-from getpass import getuser
 from os import getcwd, walk
 from os.path import exists
 from pathlib import Path
-from sys import platform
 
 
 class Paths:
@@ -99,7 +96,7 @@ def coerce_path_(value):
 
 
 # global paths
-path = Paths(paths_configuration)
+path = Paths(paths_config)
 path.paths[script] = Path(getcwd())
 path.paths[project] = path.paths[script].parent
 path.paths[projects] = path.paths[project].parent
