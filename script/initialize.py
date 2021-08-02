@@ -1,10 +1,4 @@
-from configure.settings import config, path
-from devel.flags import DEBUG
+from configure.settings import config
+from configure.settings import path
 import logging.config
-
-# configure the logger
 logging.config.dictConfig(config['logger'])
-del config
-if DEBUG:
-    pass
-pass
