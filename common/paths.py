@@ -1,9 +1,9 @@
 from configure.paths import paths_config
-from constant.keys import home
-from constant.keys import project
-from constant.keys import projects
-from constant.keys import root
-from constant.keys import script
+from common.keys import home
+from common.keys import project
+from common.keys import projects
+from common.keys import root
+from common.keys import script
 from pathlib import Path
 import os
 
