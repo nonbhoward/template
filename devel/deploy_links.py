@@ -15,8 +15,8 @@ source_project = Path(path.paths['projects'], source_project_name)
 sym_links = dict()
 sym_links['relative parts'] = dict()
 sym_links['relative parts'].update({
-    'configure logger':     ['configure', 'logger.py'],
     'configure paths':      ['configure', 'paths.py'],
+    'configure settings':   ['configure', 'settings.py'],
     'constant keys':        ['constant', 'keys.py'],
     'constant names':       ['constant', 'names.py'],
     'constant paths':       ['constant', 'paths.py'],
@@ -25,9 +25,9 @@ sym_links['relative parts'].update({
     'devel flags':          ['devel', 'flags.py'],
     'log path':             ['logs'],
     'script initialize':    ['script', 'initialize.py'],
-    'setting logger':       ['setting', 'logger.yaml'],
     'setting paths':        ['setting', 'paths.yaml'],
-    'tool json':            ['tool', 'data_management.py']
+    'setting settings':     ['setting', 'settings.yaml'],
+    'tool data management': ['tool', 'data_management.py']
 })
 
 # build the links
