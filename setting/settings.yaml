@@ -1,3 +1,21 @@
+deploy:
+  source: template
+  target: None
+  relative symbolic links:
+    configure paths: [configure, paths.py]
+    configure settings: [configure, settings.py]
+    constant keys: [constant, keys.py]
+    constant names: [constant, names.py]
+    constant paths: [constant, paths.py]
+    data path: [data]
+    devel clean up: [devel, clean_up.sh]
+    devel flags: [devel, flags.py]
+    log path: [logs]
+    script initialize: [script, initialize.py]
+    setting paths: [setting, paths.yaml]
+    setting settings: [setting, settings.yaml]
+    tool data management: [tool, data_management.py]
+
 logger:
   # reference -
   #   https://docs.python.org/3/library/logging.config.html#logging-config-dictschema
