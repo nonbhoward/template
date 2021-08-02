@@ -2,11 +2,14 @@ deployment:
   source: template
   target:
   link at target:
+    # element 0 will be created as a directory
+    # element 1 will be created as a link in that directory
+    common keys: [common, keys.py]
+    common names: [common, names.py]
+    common paths: [common, paths.py]
     configure paths: [configure, paths.py]
     configure settings: [configure, settings.py]
-    constant keys: [constant, keys.py]
-    constant names: [constant, names.py]
-    constant paths: [constant, paths.py]
+    constant : [constant]
     data path: [data]
     devel clean up: [devel, clean_up.sh]
     devel flags: [devel, flags.py]
@@ -15,6 +18,8 @@ deployment:
     setting paths: [setting, paths.yaml]
     tool data management: [tool, data_management.py]
   copy to target:
+    # element 0 will be created as a directory
+    # element 1 will be copied as a file in that directory
     setting settings: [setting, settings.yaml]
 
 logger:
