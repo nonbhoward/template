@@ -1,18 +1,11 @@
 #!/bin/bash
 
-# # # local variables
-path_script=$PWD
-
-# # # begin script
 clear && echo "launching clean up script"
-echo "script is running in the directory : $path_script"
+echo "script is running in the directory : $PWD"
 
-# # # get path parts
-# IFS, internal field separator
-IFS='/' read -ra PARTS <<< "$path_script"
-for part in "${PARTS[@]}"; do
-  echo "$part"
-done
+# clear data, logs
+echo -e "\trm data/*"
+rm data/*
+echo -e "\trm logs/*"
+rm logs/*
 
-# # # delete logs
-# TODO
