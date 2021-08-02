@@ -1,7 +1,7 @@
-link deployment:
+deployment:
   source: template
   target:
-  relative symbolic links:
+  link at target:
     configure paths: [configure, paths.py]
     configure settings: [configure, settings.py]
     constant keys: [constant, keys.py]
@@ -13,8 +13,9 @@ link deployment:
     log path: [logs]
     script initialize: [script, initialize.py]
     setting paths: [setting, paths.yaml]
-    setting settings: [setting, settings.yaml]
     tool data management: [tool, data_management.py]
+  copy to target:
+    setting settings: [setting, settings.yaml]
 
 logger:
   # reference -
