@@ -4,9 +4,8 @@ from constant.keys import project
 from constant.keys import projects
 from constant.keys import root
 from constant.keys import script
-from os import getcwd, walk
-from os.path import exists
 from pathlib import Path
+import os
 
 
 class Paths:
@@ -97,15 +96,12 @@ def coerce_path_(value):
 
 # global paths
 path = Paths(paths_config)
-path.paths[script] = Path(getcwd())
+path.paths[script] = Path(os.getcwd())
 path.paths[project] = path.paths[script].parent
 path.paths[projects] = path.paths[project].parent
 path.paths[home] = path.paths[projects].parent
 path.paths[root] = Path(path.paths[home].parts[0])
 
-
-# verify home path integrity before continuing
-# TODO REDO
 
 # populate files with enabled roots
 for path_key, path_root in path.paths.items():
@@ -118,17 +114,16 @@ for path_key, path_root in path.paths.items():
         continue
     # init a new files parent container
     path.dirs[path_key] = dict()
-    for root_, dirs_, _ in walk(path_root):
+    for root_, dirs_, _ in os.walk(path_root):
         for dir_ in dirs_:
             path.dirs[path_key].update({dir_: Path(root_, dir_)})
-            # paths[path_key].update({dir_: Path(root_, dir_)})
         break
+
 
 # verify paths
 for path_key, path_root in path.paths.items():
     print(f'checking if {path_key} exists at {path_root}')
-    if not exists(path_root):
+    if not os.path.exists(path_root):
         print(f'expected path does not exist at {path_root}')
         print(f'exiting program')
         exit()
-pass
