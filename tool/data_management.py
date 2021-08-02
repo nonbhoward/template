@@ -42,7 +42,7 @@ class CacheDataManager:
 
     def erase(self):
         os.remove(self.filepath)
-        self._data = None
+        self._data = dict()
         self._readable = False
 
     def read(self):
