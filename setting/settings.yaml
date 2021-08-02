@@ -1,6 +1,6 @@
-deploy:
+link deployment:
   source: template
-  target: None
+  target:
   relative symbolic links:
     configure paths: [configure, paths.py]
     configure settings: [configure, settings.py]
