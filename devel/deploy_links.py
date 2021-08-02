@@ -3,8 +3,8 @@ from constant.paths import path
 from pathlib import Path
 import os
 
-source_project_name = config['deploy']['source']
-target_project_name = config['deploy']['target']
+source_project_name = config['link deployment']['source']
+target_project_name = config['link deployment']['target']
 if not target_project_name:
     print(f'no target name provided')
     exit()
@@ -14,7 +14,7 @@ source_project = Path(path.paths['projects'], source_project_name)
 target_project = Path(path.paths['projects'], target_project_name)
 
 # inventory of links to be created
-relative_symbolic_links = dict(config['deploy']['relative symbolic links'])
+relative_symbolic_links = dict(config['link deployment']['relative symbolic links'])
 
 # build the links
 for link_label, link_parts in relative_symbolic_links.items():
