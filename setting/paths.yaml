@@ -1,12 +1,5 @@
-# a list of roots that will be populate the 'files' key in paths dict,
-#   to prevent population of a specific root, remove it from this list
+# a list of roots to be populated with their immediate children, to
+#   prevent population of a specific root, remove it from this list
 #   available options : home, project, projects, root, run, script
 enabled roots:
   [project]
-
-# operating system specific, user-defined paths
-#   roots can be used to start a path
-#   TODO not implemented
-additional paths:
-  win32:
-    bash aliases: [C:\, Program Files, Git, etc, profile.d, aliases.sh]
