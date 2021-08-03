@@ -6,16 +6,6 @@ from pathlib import Path
 import os
 import yaml
 
-# read the paths configuration
-path_run = Path(os.getcwd())
-path_setting = Path(path_run.parent, dn_setting)
-path_to_paths_setup = Path(path_setting, fn_settings)
-if not os.path.exists(path_to_paths_setup):
-    print(f'{path_to_paths_setup} not found')
-    exit()
-with open(path_to_paths_setup, 'r') as p_cfg:
-    paths_configuration = yaml.safe_load(p_cfg)
-
 # read the settings configuration
 path_to_settings = Path(path.dirs['project']['setting'], fn_settings)
 if not os.path.exists(path_to_settings):
