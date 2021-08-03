@@ -24,13 +24,11 @@ deployment:
 logger:
   # reference -
   #   https://docs.python.org/3/library/logging.config.html#logging-config-dictschema
-
   # version -
   #   to be set to an integer value representing the schema version.
   #   The only valid value at present is 1, but having this key allows
   #   the schema to evolve while still preserving backwards compatibility.
   version: 1
-
   # filters -
   #   the corresponding value will be a dict in which each key is a
   #   filter id and each value is a dict describing how to configure the
@@ -40,7 +38,6 @@ logger:
     # empty string) and this is used to construct a logging.Filter instance.
     unfiltered:
       name: ''
-
   # formatters -
   #   the corresponding value will be a dict in which each key is a
   #   formatter id and each value is a dict describing how to configure
@@ -58,7 +55,6 @@ logger:
     brief:
       datefmt: '%Y-%m-%d %H:%M:%S'
       format: '%(asctime)s - %(levelname)s - %(message)s'
-
   # handlers -
   #   the corresponding value will be a dict in which each key is a
   #   handler id and each value is a dict describing how to configure
@@ -75,7 +71,6 @@ logger:
       filters: [unfiltered]
       formatter: verbose
       level: DEBUG
-
   # loggers -
   #   the corresponding value will be a dict in which each key is a logger
   #   name and each value is a dict describing how to configure the
@@ -92,9 +87,9 @@ logger:
       incremental: no
       level: DEBUG
       propagate: yes
-
   root:
     filters: [unfiltered]
     handlers: [file]
     incremental: no
     level: DEBUG
+
