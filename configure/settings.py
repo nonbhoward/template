@@ -1,4 +1,3 @@
-from common.names import dn_setting
 from common.names import fn_log
 from common.names import fn_settings
 from common.paths import path
