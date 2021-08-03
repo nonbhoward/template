@@ -1,24 +1,16 @@
-from configure.paths import paths_config
+from configure.paths import paths_configuration
 from pathlib import Path
 import os
 
 
 class Paths:
-    def __init__(self, configuration):
-        self.configuration = configuration
+    def __init__(self, paths_configuration_):
+        self._configuration = paths_configuration_
         # dicts
         self._dirs = dict()
         self._paths = dict()
 
-    # interface
-    @property
-    def configuration(self) -> dict:
-        return self._configuration
-
-    @configuration.setter
-    def configuration(self, value):
-        self._configuration = value
-
+    # aggregate attributes
     @property
     def dirs(self) -> dict:
         return self._dirs
@@ -35,45 +27,45 @@ class Paths:
     def paths(self, value):
         self._paths = coerce_path_(value) if not isinstance(value, Path) else value
 
-    # protected
+    # discrete attributes
     @property
-    def _home(self) -> Path:
+    def home(self) -> Path:
         return self.paths['home']
 
-    @_home.setter
-    def _home(self, value):
+    @home.setter
+    def home(self, value):
         self.paths['home'] = value
 
     @property
-    def _project(self) -> Path:
+    def project(self) -> Path:
         return self.paths['project']
 
-    @_project.setter
-    def _project(self, value):
+    @project.setter
+    def project(self, value):
         self.paths['project'] = value
 
     @property
-    def _projects(self) -> Path:
+    def projects(self) -> Path:
         return self.paths['projects']
 
-    @_projects.setter
-    def _projects(self, value):
+    @projects.setter
+    def projects(self, value):
         self.paths['projects'] = value
 
     @property
-    def _root(self) -> Path:
+    def root(self) -> Path:
         return self.paths['root']
 
-    @_root.setter
-    def _root(self, value):
+    @root.setter
+    def root(self, value):
         self.paths['root'] = value
 
     @property
-    def _script(self) -> Path:
+    def script(self) -> Path:
         return self.paths['script']
 
-    @_script.setter
-    def _script(self, value):
+    @script.setter
+    def script(self, value):
         self.paths['script'] = value
 
 
@@ -90,7 +82,7 @@ def coerce_path_(value):
 
 
 # global paths
-path = Paths(paths_config)
+path = Paths(paths_configuration)
 path.paths['script'] = Path(os.getcwd())
 path.paths['project'] = path.paths['script'].parent
 path.paths['projects'] = path.paths['project'].parent
