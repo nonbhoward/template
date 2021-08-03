@@ -17,3 +17,4 @@ del cfg, path_to_settings
 # update the logger to use the logging path
 config['logger']['handlers']['file'].update(
     filename=Path(path.dirs['project']['logs'], fn_log))
+config['path'] = path
