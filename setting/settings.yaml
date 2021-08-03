@@ -4,7 +4,6 @@ deployment:
   link at target:
     # element 0 will be created as a directory
     # element 1 will be created as a link in that directory
-    common keys: [common, keys.py]
     common names: [common, names.py]
     common paths: [common, paths.py]
     configure paths: [configure, paths.py]

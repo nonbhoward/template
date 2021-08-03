@@ -1,9 +1,4 @@
 from configure.paths import paths_config
-from common.keys import home
-from common.keys import project
-from common.keys import projects
-from common.keys import root
-from common.keys import script
 from pathlib import Path
 import os
 
@@ -43,43 +38,43 @@ class Paths:
     # protected
     @property
     def _home(self) -> Path:
-        return self.paths[home]
+        return self.paths['home']
 
     @_home.setter
     def _home(self, value):
-        self.paths[home] = value
+        self.paths['home'] = value
 
     @property
     def _project(self) -> Path:
-        return self.paths[project]
+        return self.paths['project']
 
     @_project.setter
     def _project(self, value):
-        self.paths[project] = value
+        self.paths['project'] = value
 
     @property
     def _projects(self) -> Path:
-        return self.paths[projects]
+        return self.paths['projects']
 
     @_projects.setter
     def _projects(self, value):
-        self.paths[projects] = value
+        self.paths['projects'] = value
 
     @property
     def _root(self) -> Path:
-        return self.paths[root]
+        return self.paths['root']
 
     @_root.setter
     def _root(self, value):
-        self.paths[root] = value
+        self.paths['root'] = value
 
     @property
     def _script(self) -> Path:
-        return self.paths[script]
+        return self.paths['script']
 
     @_script.setter
     def _script(self, value):
-        self.paths[script] = value
+        self.paths['script'] = value
 
 
 def coerce_path_(value):
@@ -96,11 +91,11 @@ def coerce_path_(value):
 
 # global paths
 path = Paths(paths_config)
-path.paths[script] = Path(os.getcwd())
-path.paths[project] = path.paths[script].parent
-path.paths[projects] = path.paths[project].parent
-path.paths[home] = path.paths[projects].parent
-path.paths[root] = Path(path.paths[home].parts[0])
+path.paths['script'] = Path(os.getcwd())
+path.paths['project'] = path.paths['script'].parent
+path.paths['projects'] = path.paths['project'].parent
+path.paths['home'] = path.paths['projects'].parent
+path.paths['root'] = Path(path.paths['home'].parts[0])
 
 
 # populate files with enabled roots
