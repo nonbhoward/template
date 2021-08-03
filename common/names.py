@@ -8,5 +8,3 @@ fn_json = 'cache.json'
 # log files
 fn_log = 'event.log'
 
-# setting directory
-dn_setting = 'setting'
