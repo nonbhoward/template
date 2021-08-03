@@ -1,6 +1,16 @@
 deployment:
+  # set mode to 'delete' to remove links
+  mode:
   source: template
-  target:
+  # targets projects must be in the same directory as this project
+  # for example,
+  #   ./python_projects/this_project
+  #   ./python_projects/target_project
+  # in addition, ./setting/deployment.yaml must exist at the target
+  # for example, in ./python_projects/target_project/setting/deployment.yaml
+  #   receive:
+  #     [ common names, common paths]
+  # only elements in the list will be deployed to the target
   link at target:
     # element 0 will be created as a directory
     # element 1 will be created as a link in that directory
