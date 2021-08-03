@@ -6,7 +6,7 @@
 # 3. place the copy in parallel_project/setting
 # 4. list the elements to be received
 #   note that a full list can be found in setting.settings
-# 5. run ./this_project/devel/deploy_links.py
+# 5. run ./this_project/devel/deploy.py
 # 6. soft links for each item in list will be created
 receive:
   [
