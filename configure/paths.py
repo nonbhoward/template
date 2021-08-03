@@ -11,5 +11,5 @@ if not os.path.exists(path_to_paths_config):
     print(f'{path_to_paths_config} not found')
     exit()
 with open(path_to_paths_config, 'r') as p_cfg:
-    paths_config = yaml.safe_load(p_cfg)
+    paths_configuration = yaml.safe_load(p_cfg)
 del p_cfg, path_to_paths_config
