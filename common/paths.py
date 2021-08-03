@@ -12,6 +12,10 @@ class Paths:
 
     # aggregate attributes
     @property
+    def configuration(self):
+        return self._configuration
+
+    @property
     def dirs(self) -> dict:
         return self._dirs
 
