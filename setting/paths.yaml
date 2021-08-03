@@ -2,4 +2,4 @@
 #   prevent population of a specific root, remove it from this list
 #   available options : home, project, projects, root, run, script
 enabled roots:
-  [project]
+  [project, projects]
