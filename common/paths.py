@@ -12,77 +12,57 @@ class Paths:
 
     # aggregate attributes
     @property
-    def configuration(self):
-        return self._configuration
-
-    @property
-    def dirs(self) -> dict:
+    def children(self) -> dict:
         return self._dirs
 
-    @dirs.setter
-    def dirs(self, value):
+    @children.setter
+    def children(self, value):
         self._dirs = value
 
     @property
-    def paths(self):
-        return self._paths
-
-    @paths.setter
-    def paths(self, value):
-        self._paths = coerce_path_(value) if not isinstance(value, Path) else value
+    def configuration(self):
+        return self._configuration
 
     # discrete attributes
     @property
     def home(self) -> Path:
-        return self.paths['home']
+        return self._paths['home']
 
     @home.setter
     def home(self, value):
-        self.paths['home'] = value
+        self._paths['home'] = value
 
     @property
     def project(self) -> Path:
-        return self.paths['project']
+        return self._paths['project']
 
     @project.setter
     def project(self, value):
-        self.paths['project'] = value
+        self._paths['project'] = value
 
     @property
     def projects(self) -> Path:
-        return self.paths['projects']
+        return self._paths['projects']
 
     @projects.setter
     def projects(self, value):
-        self.paths['projects'] = value
+        self._paths['projects'] = value
 
     @property
     def root(self) -> Path:
-        return self.paths['root']
+        return self._paths['root']
 
     @root.setter
     def root(self, value):
-        self.paths['root'] = value
+        self._paths['root'] = value
 
     @property
     def script(self) -> Path:
-        return self.paths['script']
+        return self._paths['script']
 
     @script.setter
     def script(self, value):
-        self.paths['script'] = value
-
-
-def coerce_path_(value):
-    print(f'warning, value \'{value}\' not of type Path')
-    try:
-        value = Path(value)
-    except Exception as exc:
-        print(f'unable to construct Path from {value}')
-        for arg in exc.args[0]:
-            print(arg)
-        exit()
-    return value
+        self._paths['script'] = value
 
 
 # global paths
@@ -111,10 +91,10 @@ for path_name, path_path in path_check.items():
         print(f'warning, {path_name} is not enabled')
         continue
     # init a new files parent container
-    path.dirs[path_name] = dict()
+    path.children[path_name] = dict()
     for root_, dirs_, _ in os.walk(path_path):
         for dir_ in dirs_:
-            path.dirs[path_name].update({dir_: Path(root_, dir_)})
+            path.children[path_name].update({dir_: Path(root_, dir_)})
         break
 
 
