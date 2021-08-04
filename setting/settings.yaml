@@ -1,3 +1,9 @@
+# project app_config
+
+# template app_config
+cache:
+  enabled: False
+
 deployment:
   # set mode to 'delete' to remove links
   mode:
