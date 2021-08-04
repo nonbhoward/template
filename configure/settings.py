@@ -12,7 +12,6 @@ if not os.path.exists(path_to_settings):
     exit()
 with open(path_to_settings, 'r') as cfg:
     config = yaml.safe_load(cfg)
-del cfg, path_to_settings
 
 # update the logger to use the logging path
 config['logger']['handlers']['file'].update(
