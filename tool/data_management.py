@@ -8,6 +8,19 @@ import time
 log = logging.getLogger(__name__)
 
 
+class CacheAge:
+    def __init__(self):
+        self.MINUTE = 60
+        self.HOUR = self.MINUTE * 60
+        self.DAY = self.HOUR * 24
+        self.WEEK = self.DAY * 7
+        self.MONTH = self.DAY * 30
+        self.YEAR = self.DAY * 365
+
+
+AGE = CacheAge()
+
+
 class CacheType:
     def __init__(self):
         self.JSON = 'json'
@@ -21,14 +34,15 @@ CACHE_TYPE = CacheType()
 
 
 class CacheDataHandler:
-    def __init__(self, cache_filepath, cache_type=CACHE_TYPE.JSON):
+    def __init__(self, cache_configuration, cache_filepath, cache_type=CACHE_TYPE.JSON):
+        self._configuration = cache_configuration
         self._data = dict()
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) \
             else Path(path.children['project']['data'], cache_filepath)
         self._type = cache_type
         self._readable = False
-        self._seconds_until_stale = 600
+        self._seconds_until_stale = self.configuration.get('seconds until stale', AGE.HOUR)
         if os.path.exists(self.filepath):
             with open(self.filepath, 'r') as cache:
                 cache_raw = cache.read()
@@ -78,6 +92,10 @@ class CacheDataHandler:
         return time.time() - time_create
 
     @property
+    def configuration(self):
+        return self._configuration
+
+    @property
     def data(self):
         return self._data
 
@@ -104,7 +122,7 @@ class CacheDataHandler:
 
     @seconds_until_stale.setter
     def seconds_until_stale(self, value):
-        default_value = 600
+        default_value = 10 * AGE.MINUTE
         if not isinstance(value, int):
             log.warning(f'property must be set to type int, defaulting to {default_value} seconds')
             value = default_value
