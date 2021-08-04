@@ -6,8 +6,8 @@ startup sequence
 1. common.paths builds the paths dictionary  
 	access via script.initialize.path  
 2. user configuration is loaded from setting.settings.yaml into a dict  
-	access via script.initialize.config  
-3. the script.initialize configures the logger according to config['logger']  
+	access via script.initialize.app_config  
+3. the script.initialize configures the logger according to app_config['logger']  
 
 #### known bugs  
 logging does not work as expected  
