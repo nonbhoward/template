@@ -1,16 +1,16 @@
 from common.names import fn_deployment
-from configure.settings import config
+from configure.settings import app_config
 from pathlib import Path
 import os
 import shutil
 import yaml
 
-source_project = config['path'].paths['project']
-projects = config['path'].dirs['projects']
+source_project = app_config['path'].paths['project']
+projects = app_config['path'].children['projects']
 
 # inventory of links to be created
-links_to_create = dict(config['deployment']['link at target'])
-files_to_copy = dict(config['deployment']['copy to target'])
+links_to_create = dict(app_config['deployment']['link at target'])
+files_to_copy = dict(app_config['deployment']['copy to target'])
 
 # search projects for existence of ./setting/deployment.yaml
 deployment_details = dict()
@@ -41,7 +41,7 @@ for link_label, link_parts in links_to_create.items():
         # execute the creation
         os.symlink(src=source_file, dst=target_file)
         continue
-    if config['deployment']['mode'] == 'delete' and Path(target_file).is_symlink():
+    if app_config['deployment']['mode'] == 'delete' and Path(target_file).is_symlink():
         os.remove(path=target_file)
 
 
