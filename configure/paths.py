@@ -4,8 +4,8 @@ import os
 import yaml
 
 # read the configuration
-path_run = Path(os.getcwd())
-path_setting = Path(path_run.parent, 'setting')
+path_script = Path(os.getcwd())
+path_setting = Path(path_script.parent, 'setting')
 path_to_paths_config = Path(path_setting, fn_paths_config)
 if not os.path.exists(path_to_paths_config):
     print(f'{path_to_paths_config} not found')
