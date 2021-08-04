@@ -25,7 +25,7 @@ class CacheDataHandler:
         self._data = dict()
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) \
-            else Path(path.dirs['project']['data'], cache_filepath)
+            else Path(path.children['project']['data'], cache_filepath)
         self._type = cache_type
         self._readable = False
         self._seconds_until_stale = 600
