@@ -103,3 +103,17 @@ logger:
     incremental: no
     level: DEBUG
 
+socket:
+  # mode, server, client, or disabled (default)
+  mode:
+  buffer size: 4096
+  separator: <SEP>
+  client:
+    # host must be string
+    host: ''
+    port:
+  server:
+    # host must be string
+    host: ''
+    port:
+    backlog: 10
