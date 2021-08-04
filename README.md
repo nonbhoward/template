@@ -9,3 +9,6 @@ startup sequence
 	access via script.initialize.config  
 3. the script.initialize configures the logger according to config['logger']  
 
+#### known bugs  
+logging does not work as expected  
+
