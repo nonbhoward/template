@@ -87,34 +87,41 @@ def coerce_path_(value):
 
 # global paths
 path = Paths(paths_configuration)
-path.paths['script'] = Path(os.getcwd())
-path.paths['project'] = path.paths['script'].parent
-path.paths['projects'] = path.paths['project'].parent
-path.paths['home'] = path.paths['projects'].parent
-path.paths['root'] = Path(path.paths['home'].parts[0])
+setattr(Paths, 'script', Path(os.getcwd()))
+setattr(Paths, 'project', path.script.parent)
+setattr(Paths, 'projects', path.project.parent)
+setattr(Paths, 'home', path.projects.parent)
+setattr(Paths, 'root', Path(path.home.parts[0]))
 
 
 # populate files with enabled roots
-for path_key, path_root in path.paths.items():
+path_check = {
+    'script':   path.script,
+    'project':  path.project,
+    'projects': path.projects,
+    'home':     path.home,
+    'root':     path.root
+}
+for path_name, path_path in path_check.items():
     # exclude non paths, exclude non-enabled (toggle via yaml)
-    if not isinstance(path_root, Path):
-        print(f'warning, {path_root} not of type Path')
+    if not isinstance(path_path, Path):
+        print(f'warning, {path_path} not of type Path')
         continue
-    if path_key not in path.configuration['enabled roots']:
-        print(f'warning, {path_key} is not enabled')
+    if path_name not in path.configuration['roots']['enabled']:
+        print(f'warning, {path_name} is not enabled')
         continue
     # init a new files parent container
-    path.dirs[path_key] = dict()
-    for root_, dirs_, _ in os.walk(path_root):
+    path.dirs[path_name] = dict()
+    for root_, dirs_, _ in os.walk(path_path):
         for dir_ in dirs_:
-            path.dirs[path_key].update({dir_: Path(root_, dir_)})
+            path.dirs[path_name].update({dir_: Path(root_, dir_)})
         break
 
 
 # verify paths
-for path_key, path_root in path.paths.items():
-    print(f'checking if {path_key} exists at {path_root}')
-    if not os.path.exists(path_root):
-        print(f'expected path does not exist at {path_root}')
+for path_name, path_path in path_check.items():
+    print(f'checking if {path_name} exists at {path_path}')
+    if not os.path.exists(path_path):
+        print(f'expected path does not exist at {path_path}')
         print(f'exiting program')
         exit()
