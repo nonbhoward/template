@@ -20,7 +20,7 @@ class CacheType:
 CACHE_TYPE = CacheType()
 
 
-class CacheDataManager:
+class CacheDataHandler:
     def __init__(self, cache_filepath, cache_type=CACHE_TYPE.JSON):
         self._data = dict()
         self._filepath = cache_filepath \
