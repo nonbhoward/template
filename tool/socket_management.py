@@ -15,28 +15,28 @@ SOCKET_MODE = SocketMode()
 
 
 class SocketHandler:
-    def __init__(self, socket_configuration_):
+    def __init__(self, socket_configuration):
         log.info(f'initializing {self.__class__.__name__}')
         # init
+        self._configuration = socket_configuration
         self._client = None
         self._server = None
-        self._configuration = socket_configuration_
         # startup
-        if not socket_configuration_.get('buffer size'):
+        if not socket_configuration.get('buffer size'):
             log.error(f'no buffer size specified, class instantiation abort')
             return
-        if not socket_configuration_.get('separator'):
+        if not socket_configuration.get('separator'):
             log.error(f'no separator specified, class instantiation abort')
             return
         if self.configuration.get('mode', None) == SOCKET_MODE.SERVER:
-            self.server = socket_configuration_[SOCKET_MODE.SERVER]
+            self.server = socket_configuration[SOCKET_MODE.SERVER]
             if not self.server:
                 log.error(f'error instantiating server')
             return
-        if not socket_configuration_.get(SOCKET_MODE.CLIENT, None):
+        if not socket_configuration.get(SOCKET_MODE.CLIENT, None):
             log.error(f'no client specified, class instantiation abort')
             return
-        self.client = socket_configuration_[SOCKET_MODE.CLIENT]
+        self.client = socket_configuration[SOCKET_MODE.CLIENT]
         if not self.client:
             log.error(f'error instantiating client')
 
