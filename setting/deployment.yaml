@@ -1,14 +1,15 @@
 # how to use this file
 # 1. make a copy of this file
 # 2. have a parallel project
-#   /path/to/this_project
-#   /path/to/parallel_project
+#     /path/to/this_project
+#     /path/to/parallel_project
 # 3. place the copy in parallel_project/setting
 # 4. list the elements to be received
-#   note that a full list can be found in setting.settings
-#   under : features.linked and features.unlinked
+#     note that a full list can be found in setting.settings
+#     under : features.linked and features.unlinked
 # 5. run ./this_project/devel/deploy.py
-# 6. soft links for each item in list will be created
+# 6. soft links corresponding to each feature will be
+#     created at the target
 receive features:
   [
       caching,
