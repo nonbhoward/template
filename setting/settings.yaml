@@ -1,6 +1,8 @@
-# project app_config
+# project app_config section
+#   below space left intentionally blank
 
-# template app_config
+
+# template app_config section
 cache:
   enabled: False
   seconds until stale:
@@ -15,29 +17,30 @@ deployment:
   #   ./python_projects/target_project
   # in addition, ./setting/deployment.yaml must exist at the target
   # for example, in ./python_projects/target_project/setting/deployment.yaml
-  #   receive:
-  #     [ common names, common paths]
-  # only elements in the list will be deployed to the target
-  link at target:
-    # element 0 will be created as a directory
-    # element 1 will be created as a link in that directory
-    common names: [common, names.py]
-    common paths: [common, paths.py]
-    configure paths: [configure, paths.py]
-    configure settings: [configure, settings.py]
-    constant : [constant]
-    data path: [data]
-    devel clean up: [devel, clean_up.sh]
-    devel flags: [devel, flags.py]
-    log path: [logs]
-    script initialize: [script, initialize.py]
-    setting paths: [setting, paths.yaml]
-    tool data management: [tool, data_management.py]
-    tool socket management: [tool, socket_management.py]
-  copy to target:
-    # element 0 will be created as a directory
-    # element 1 will be copied as a file in that directory
-    setting settings: [setting, settings.yaml]
+  #   receive features:
+  #     [ caching, core, developer, networking ]
+  # feature categories in the list will be deployed to the target project
+  features:
+    linked:
+      caching:
+        data path: [data]
+        data management: [tool, data_management.py]
+      core:
+        common names: [common, names.py]
+        common paths: [common, paths.py]
+        configure paths: [configure, paths.py]
+        configure settings: [configure, settings.py]
+        log path: [logs]
+        script initialize: [script, initialize.py]
+      developer:
+        clean up: [devel, clean_up.sh]
+        flags: [devel, flags.py]
+      networking:
+        socket management classes: [tool, socket_management.py]
+    unlinked:
+      core:
+        paths settings: [setting, paths.yaml]
+        settings: [setting, settings.yaml]
 
 logger:
   # reference -
