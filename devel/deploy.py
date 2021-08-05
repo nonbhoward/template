@@ -5,7 +5,7 @@ import os
 import shutil
 import yaml
 
-source_project = app_config['path'].paths['project']
+source_project = app_config['path'].project
 projects = app_config['path'].children['projects']
 
 # inventory of links to be created
@@ -37,7 +37,7 @@ for link_label, link_parts in links_to_create.items():
         os.mkdir(target_dir)
     source_file = Path(source_project, * link_parts)
     target_file = Path(deployment_path, * link_parts)
-    if not os.path.exists(target_file):
+    if not os.path.exists(target_file) and app_config['deployment'].get('mode') != 'delete':
         # execute the creation
         os.symlink(src=source_file, dst=target_file)
         continue
