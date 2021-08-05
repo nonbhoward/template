@@ -33,6 +33,7 @@ deployment:
     script initialize: [script, initialize.py]
     setting paths: [setting, paths.yaml]
     tool data management: [tool, data_management.py]
+    tool socket management: [tool, socket_management.py]
   copy to target:
     # element 0 will be created as a directory
     # element 1 will be copied as a file in that directory
