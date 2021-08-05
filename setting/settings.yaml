@@ -3,7 +3,7 @@
 # template app_config
 cache:
   enabled: False
-  seconds until stale: 600
+  seconds until stale:
 
 deployment:
   # set mode to 'delete' to remove links

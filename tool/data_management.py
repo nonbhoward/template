@@ -18,9 +18,6 @@ class CacheAge:
         self.YEAR = self.DAY * 365
 
 
-AGE = CacheAge()
-
-
 class CacheType:
     def __init__(self):
         self.JSON = 'json'
@@ -30,7 +27,15 @@ class CacheType:
         self.DEFAULT = self.JSON
 
 
+class DefaultValue:
+    def __init__(self):
+        self.AGE_CACHE_STALE = AGE.HOUR
+        self.FILEPATH = path.children['project']['data']
+
+
+AGE = CacheAge()
 CACHE_TYPE = CacheType()
+DEFAULT = DefaultValue()
 
 
 class CacheDataHandler:
@@ -39,10 +44,10 @@ class CacheDataHandler:
         self._data = dict()
         self._filepath = cache_filepath \
             if isinstance(cache_filepath, Path) \
-            else Path(path.children['project']['data'], cache_filepath)
-        self._type = cache_type
+            else DEFAULT.FILEPATH
         self._readable = False
-        self._seconds_until_stale = self.configuration.get('seconds until stale', AGE.HOUR)
+        self._seconds_until_stale = self.configuration.get('seconds until stale', DEFAULT.AGE_CACHE_STALE)
+        self._type = cache_type
         if os.path.exists(self.filepath):
             with open(self.filepath, 'r') as cache:
                 cache_raw = cache.read()
@@ -122,10 +127,9 @@ class CacheDataHandler:
 
     @seconds_until_stale.setter
     def seconds_until_stale(self, value):
-        default_value = 10 * AGE.MINUTE
         if not isinstance(value, int):
-            log.warning(f'property must be set to type int, defaulting to {default_value} seconds')
-            value = default_value
+            log.warning(f'property must be set to type int, defaulting to {DEFAULT.AGE_CACHE_STALE} seconds')
+            value = DEFAULT.AGE_CACHE_STALE
         self._seconds_until_stale = value
 
     @property
