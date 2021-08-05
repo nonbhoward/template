@@ -46,7 +46,8 @@ class CacheDataHandler:
             if isinstance(cache_filepath, Path) \
             else DEFAULT.FILEPATH
         self._readable = False
-        self._seconds_until_stale = self.configuration.get('seconds until stale', DEFAULT.AGE_CACHE_STALE)
+        if not self.configuration.get('seconds until stale', None):
+            self._seconds_until_stale = DEFAULT.AGE_CACHE_STALE
         self._type = cache_type
         if os.path.exists(self.filepath):
             with open(self.filepath, 'r') as cache:
