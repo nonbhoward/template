@@ -6,20 +6,13 @@
 # 3. place the copy in parallel_project/setting
 # 4. list the elements to be received
 #   note that a full list can be found in setting.settings
+#   under : features.linked and features.unlinked
 # 5. run ./this_project/devel/deploy.py
 # 6. soft links for each item in list will be created
-receive:
+receive features:
   [
-  common names,
-  common paths,
-  configure paths,
-  configure settings,
-  constant,
-  data path,
-  devel clean up,
-  devel flags,
-  log path,
-  script initialize,
-  setting paths,
-  tool data management
+      caching,
+      core,
+      developer,
+      networking
   ]
