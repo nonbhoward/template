@@ -2,7 +2,7 @@ from configure.settings import app_config
 import logging.config
 
 logging.config.dictConfig(app_config['logger'])
-log = logging.getLogger(__name__)
+log = logging.getLogger()  # root
 
 if app_config.get('socket', None) and app_config['socket'].get('mode', None) == 'enabled':
     from tool.socket_management import SocketHandler
