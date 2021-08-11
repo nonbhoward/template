@@ -19,6 +19,7 @@ class SocketHandler:
         log.info(f'initializing {self.__class__.__name__}')
         # init
         self._configuration = socket_configuration
+        self.mode = None
         self._client = None
         self._server = None
         # startup
@@ -89,11 +90,12 @@ class SocketHandler:
         server = socket.socket()
         try:
             server.bind((host, port))
-            server_configuration['instance'] = server
+            self.mode = SOCKET_MODE.SERVER
             log.info(f'socket server bound to host {host}, port {port}')
         except Exception as exc:
             log.error(f'{exc}')
             return
+        self._server = server
 
     @property
     def client(self):
@@ -110,8 +112,9 @@ class SocketHandler:
         client = socket.socket()
         try:
             client.connect((host, port))
-            client_configuration['instance'] = client
+            self.mode = SOCKET_MODE.CLIENT
             log.info(f'socket client connected to host {host}, port {port}')
         except Exception as exc:
             log.error(f'{exc}')
             return
+        self._client = client
