@@ -89,11 +89,11 @@ class SocketHandler:
         server = socket.socket()
         try:
             server.bind((host, port))
+            server_configuration['instance'] = server
             log.info(f'socket server bound to host {host}, port {port}')
         except Exception as exc:
             log.error(f'{exc}')
             return
-        self._server = server
 
     @property
     def client(self):
@@ -110,8 +110,8 @@ class SocketHandler:
         client = socket.socket()
         try:
             client.connect((host, port))
+            client_configuration['instance'] = client
             log.info(f'socket client connected to host {host}, port {port}')
         except Exception as exc:
             log.error(f'{exc}')
             return
-        self._client = client
