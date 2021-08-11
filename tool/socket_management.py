@@ -19,7 +19,7 @@ class SocketHandler:
         log.info(f'initializing {self.__class__.__name__}')
         # init
         self._configuration = socket_configuration
-        self.mode = None
+        self.mode = self.configuration.get('mode', None)
         self._client = None
         self._server = None
         # startup
@@ -29,17 +29,20 @@ class SocketHandler:
         if not socket_configuration.get('separator'):
             log.error(f'no separator specified, class instantiation abort')
             return
-        if self.configuration.get('mode', None) == SOCKET_MODE.SERVER:
+        if self.mode == SOCKET_MODE.SERVER:
             self.server = socket_configuration[SOCKET_MODE.SERVER]
             if not self.server:
                 log.error(f'error instantiating server')
             return
-        if not socket_configuration.get(SOCKET_MODE.CLIENT, None):
-            log.error(f'no client specified, class instantiation abort')
+        if self.mode == SOCKET_MODE.CLIENT:
+            self.client = socket_configuration[SOCKET_MODE.CLIENT]
+            if not self.client:
+                log.error(f'error instantiating client')
             return
-        self.client = socket_configuration[SOCKET_MODE.CLIENT]
-        if not self.client:
-            log.error(f'error instantiating client')
+        if self.mode == 'disabled':
+            log.error(f'fatal, socket handler is disabled')
+            exit()  # should never be able to reach this state
+        log.error(f'bad socket mode specified')
 
     def receive(self):
         socket_configuration_ = self.configuration
