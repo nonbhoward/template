@@ -1,12 +1,29 @@
-from common.names import fn_deployment
-from configure.settings import app_config
 from pathlib import Path
 import os
 import shutil
+import sys
 import yaml
+
+# content roots for terminal parent
+print(f'set content roots')
+# FIXME development note,
+# FIXME  this creates an execution dependency on this script's location.
+# FIXME  at this time i am not aware of an improved method
+sys.path.append(str(Path(os.getcwd()).parent))
+print(f'\tcwd is {os.getcwd()}')
+for path in sys.path:
+    print(f'\tsys.path contains {path}')
+
+from common.names import fn_deployment
+from configure.settings import app_config
+
+# process args
+if sys.argv[1] is not None:
+    app_config['deployment']['mode'] = sys.argv[1]
 
 source_project = app_config['path'].project
 projects = app_config['path'].children['projects']
+print(f'source project is {source_project}')
 
 # inventory of links to be created
 deployment_features = app_config['deployment']['features']
@@ -20,6 +37,7 @@ for project, project_path in projects.items():
     if project_path == source_project:
         continue  # skip self
     if os.path.exists(path_to_target_deployment):
+        print(f'target project identified as {source_project}')
         with open(path_to_target_deployment, 'r') as d_cfg:
             deployment_config = yaml.safe_load(d_cfg)
         deployment_details.update({project_path: deployment_config['receive features']})
@@ -43,10 +61,12 @@ for feature, feature_components in features_linked.items():
             if not os.path.exists(target_file) and \
                     app_config['deployment'].get('mode') != 'delete':
                 # execute the creation
+                print(f'link created at {target_file}')
                 os.symlink(src=source_file, dst=target_file)
                 continue
             if app_config['deployment']['mode'] == 'delete' \
                     and Path(target_file).is_symlink():
+                print(f'link destroyed at {target_file}')
                 os.remove(path=target_file)
 
 
