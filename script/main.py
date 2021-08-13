@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 import sys
 
-# add content roots
+# content roots for terminal parent
 print(f'PYTHON PATH SETUP')
 sys.path.append(str(Path(os.getcwd()).parent))
 print(f'\tcwd is {os.getcwd()}')
