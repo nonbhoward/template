@@ -18,8 +18,10 @@ from common.names import fn_deployment
 from configure.settings import app_config
 
 # process args
-if sys.argv[1] is not None:
-    app_config['deployment']['mode'] = sys.argv[1]
+print(f'sys args')
+for idx, arg in enumerate(sys.argv):
+    if idx == 1 and arg:
+        app_config['deployment']['mode'] = sys.argv[1]
 
 source_project = app_config['path'].project
 projects = app_config['path'].children['projects']
