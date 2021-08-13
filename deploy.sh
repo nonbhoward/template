@@ -51,9 +51,5 @@ file_exist "$path_to_deploy"
 ## check ./venv/bin/python exists
 file_exist "$path_to_interpreter"
 # launch python script via python venv interpreter
-if [ $# -ne 0 ];then
-  execute "$path_to_interpreter $path_to_deploy $1" "LAUNCH PYTHON ENVIRONMENT"
-else
-  execute "$path_to_interpreter $path_to_deploy" "LAUNCH PYTHON ENVIRONMENT"
-fi
+execute "$path_to_interpreter $path_to_deploy $1" "LAUNCH PYTHON ENVIRONMENT"
 exit
