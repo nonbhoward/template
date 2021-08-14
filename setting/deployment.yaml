@@ -28,8 +28,8 @@ receive features:
 #    the target project should be in a directory parallel to the
 #    source project
 #    example :
-#      /path/to/target/project
-#      /path/to/source/project
+#      /path/to/target_project
+#      /path/to/source_project
 
 # q, where should this file be?
 #    this file should be in the /setting/ directory of the target
