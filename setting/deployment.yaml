@@ -1,15 +1,17 @@
 # how to use this file
-# 1. make a copy of this file
-# 2. have a parallel project
+# 1. have a parallel project
 #     /path/to/this_project
 #     /path/to/parallel_project
-# 3. place the copy in parallel_project/setting
-# 4. list the elements to be received
-#     note that a full list can be found in setting.settings
-#     under : features.linked and features.unlinked
-# 5. run ./this_project/devel/deploy.py
-# 6. soft links corresponding to each feature will be
+# 2. copy this file to parallel_project/setting/
+# 3. customize the list according to your preferences
+# 4. run ./source/project/deploy.sh
+# 5. soft links corresponding to each feature will be
 #     created at the target
+# note that soft-links can be deleted by passing delete arg
+#    example :
+#      ./source/project/deploy.sh delete
+# unlinked features must be managed manually
+
 receive features:
   [
       caching,
@@ -17,3 +19,41 @@ receive features:
       developer,
       networking
   ]
+
+# q, what is this file?
+#    this file details which soft-links should be created at the
+#    target project
+
+# q, where should the target project be?
+#    the target project should be in a directory parallel to the
+#    source project
+#    example :
+#      /path/to/target/project
+#      /path/to/source/project
+
+# q, where should this file be?
+#    this file should be in the /setting/ directory of the target
+#    project
+#    example :
+#      /path/to/target/project/setting/deployment.yaml
+
+# q, how should this file be used?
+#    1. make a copy of this file
+#    2. place it in the target project
+#    3. add desired deployment features to the
+#       'receive features' list
+
+# q, how are features defined?
+#    features are defined by /source/project/setting/settings.yaml
+#    deployment > features > ( linked | unlinked )
+#    in essence, features are lists of modules
+
+# q, what is a linked feature?
+#    a linked feature is a soft-link to be created
+
+# q, what is an unlinked feature?
+#    an unlinked feature is a copied file,
+
+# q, why differentiate linked vs unlinked features?
+#    linked features allow re-use of code
+#    unlinked features allow project independence and customization
