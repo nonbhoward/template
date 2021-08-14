@@ -1,32 +1,5 @@
 #!/bin/bash
-
-execute(){
-  echo "$2" && echo -e "\texecuting : $1" && $1
-}
-
-dir_exist(){
-  if [ $# -ne 1 ];then
-    echo "function takes one arg, exit" && exit
-  else
-    if [ -d "$1" ];then
-      echo -e "\t$1 exists, continuing"
-    else
-      echo "$1 not exist, exit" && exit
-    fi
-  fi
-}
-
-file_exist(){
-  if [ $# -ne 1 ];then
-    echo "function takes one arg, exit" && exit
-  else
-    if [ -f "$1" ];then
-      echo -e "\t$1 exists, continuing"
-    else
-      echo "$1 not exist, exit" && exit
-    fi
-  fi
-}
+source "$(dirname "$0")/common/shell.sh"
 
 # startup check, defining paths to elements
 ## announce cwd to user
