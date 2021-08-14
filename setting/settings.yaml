@@ -4,7 +4,7 @@
 
 # template app_config section
 cache:
-  enabled: False
+  enabled: no
   seconds until stale:
 
 deployment:
