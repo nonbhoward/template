@@ -28,6 +28,7 @@ deployment:
       core:
         common names: [common, names.py]
         common paths: [common, paths.py]
+        common shell: [common, shell.sh]
         configure paths: [configure, paths.py]
         configure settings: [configure, settings.py]
         log path: [logs]
