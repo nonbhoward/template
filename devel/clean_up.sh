@@ -1,11 +1,10 @@
 #!/bin/bash
 
 clear && echo "launching clean up script"
-echo "script is running in the directory : $PWD"
 
 # clear data, logs
 echo -e "\trm data/*"
-rm data/*
+rm $(dirname $0)/data/*
 echo -e "\trm logs/*"
-rm logs/*
+rm $(dirname $0)/logs/*
 
