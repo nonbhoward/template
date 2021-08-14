@@ -1,14 +1,23 @@
-# template
+## template
 a generic starting point for new projects  
-includes logging and a path dictionary  
+this project could be used in many ways,  
+but the two recommended approaches are :
 
-startup sequence  
-1. common.paths builds the paths dictionary  
-	access via script.initialize.path  
-2. user configuration is loaded from setting.settings.yaml into a dict  
-	access via script.initialize.app_config  
-3. the script.initialize configures the logger according to app_config['logger']  
+1. fork this project, program directly into it
+2. use built-in soft-link deployment, described below
 
-#### known bugs  
-logging does not work as expected  
 
+#### startup sequence
+*( $ python ./script/initialize.py )*
+1. ./common/paths creates relative path object
+2. ./configure/settings creates the application configuration from ./setting/settings  
+3. ./script/initialize configures the logger
+
+#### soft-link deployment
+*( see ./setting/deployment.yaml for more information )*  
+this project will create soft-links in parallel  
+projects containing the deployment.yaml manifest.  
+the soft-links created depend on the manifest configuration  
+
+#### known bugs
+1. logging does not work as expected  
