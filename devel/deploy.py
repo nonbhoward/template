@@ -24,7 +24,7 @@ for idx, arg in enumerate(sys.argv):
         app_config['deployment']['mode'] = sys.argv[1]
 
 source_project = app_config['path'].project
-projects = app_config['path'].children['projects']
+projects = app_config['path'].to['projects']
 print(f'source project is {source_project}')
 
 # inventory of links to be created

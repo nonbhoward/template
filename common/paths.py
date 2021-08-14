@@ -7,62 +7,38 @@ class Paths:
     def __init__(self, paths_configuration_):
         self._configuration = paths_configuration_
         # dicts
-        self._dirs = dict()
+        self._children = dict()
         self._paths = dict()
 
     # aggregate attributes
     @property
-    def children(self) -> dict:
-        return self._dirs
-
-    @children.setter
-    def children(self, value):
-        self._dirs = value
-
-    @property
     def configuration(self):
         return self._configuration
+
+    @property
+    def to(self) -> dict:
+        return self._children
 
     # discrete attributes
     @property
     def home(self) -> Path:
         return self._paths['home']
 
-    @home.setter
-    def home(self, value):
-        self._paths['home'] = value
-
     @property
     def project(self) -> Path:
         return self._paths['project']
-
-    @project.setter
-    def project(self, value):
-        self._paths['project'] = value
 
     @property
     def projects(self) -> Path:
         return self._paths['projects']
 
-    @projects.setter
-    def projects(self, value):
-        self._paths['projects'] = value
-
     @property
     def root(self) -> Path:
         return self._paths['root']
 
-    @root.setter
-    def root(self, value):
-        self._paths['root'] = value
-
     @property
     def script(self) -> Path:
         return self._paths['script']
-
-    @script.setter
-    def script(self, value):
-        self._paths['script'] = value
 
 
 # global paths
@@ -82,6 +58,7 @@ path_check = {
     'home':     path.home,
     'root':     path.root
 }
+
 for path_name, path_path in path_check.items():
     # exclude non paths, exclude non-enabled (toggle via yaml)
     if not isinstance(path_path, Path):
@@ -91,14 +68,14 @@ for path_name, path_path in path_check.items():
         print(f'warning, {path_name} is not enabled')
         continue
     # init a new files parent container
-    path.children[path_name] = dict()
-    for root_, dirs_, _ in os.walk(path_path):
-        for dir_ in dirs_:
-            path.children[path_name].update({dir_: Path(root_, dir_)})
-        break
+    path.to[path_name] = dict()
+    for root, directories, _ in os.walk(path_path):
+        for directory in directories:
+            path.to[path_name].update({directory: Path(root, directory)})
+        break  # no recursion
 
 
-# verify paths
+# verify paths, end program on failure
 for path_name, path_path in path_check.items():
     print(f'checking if {path_name} exists at {path_path}')
     if not os.path.exists(path_path):

@@ -30,7 +30,7 @@ class CacheType:
 class DefaultValue:
     def __init__(self):
         self.AGE_CACHE_STALE = AGE.HOUR
-        self.FILEPATH = path.children['project']['data']
+        self.FILEPATH = path.to['project']['data']
 
 
 AGE = CacheAge()
