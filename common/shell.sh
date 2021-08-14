@@ -1,7 +1,4 @@
 #!/bin/bash
-execute(){
-  echo "$2" && echo -e "\texecuting : $1" && $1
-}
 
 dir_exist(){
   if [ $# -ne 1 ];then
@@ -15,6 +12,10 @@ dir_exist(){
   fi
 }
 
+execute(){
+  echo "$2" && echo -e "\texecuting : $1" && $1
+}
+
 file_exist(){
   if [ $# -ne 1 ];then
     echo "function takes one arg, exit" && exit
@@ -26,3 +27,4 @@ file_exist(){
     fi
   fi
 }
+
