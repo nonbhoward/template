@@ -1,7 +1,6 @@
 from common.paths import path
 from json import dumps
 from json import loads
-from pathlib import Path
 import logging
 import os
 import time
@@ -21,9 +20,7 @@ class CacheAge:
 class CacheType:
     def __init__(self):
         self.JSON = 'json'
-        self.RAW = 'raw'
-        self.OPTIONS = [self.JSON,
-                        self.RAW]
+        self.OPTIONS = [self.JSON]
         self.DEFAULT = self.JSON
 
 
@@ -39,12 +36,12 @@ DEFAULT = DefaultValue()
 
 
 class CacheDataHandler:
-    def __init__(self, cache_configuration, cache_filepath, cache_type=CACHE_TYPE.JSON):
+    def __init__(self, cache_configuration,
+                 cache_filepath=DEFAULT.FILEPATH,
+                 cache_type=CACHE_TYPE.JSON):
         self._configuration = cache_configuration
         self._data = dict()
-        self._filepath = cache_filepath \
-            if isinstance(cache_filepath, Path) \
-            else DEFAULT.FILEPATH
+        self._filepath = cache_filepath
         self._readable = False
         if not self.configuration.get('seconds until stale', None):
             self._seconds_until_stale = DEFAULT.AGE_CACHE_STALE
