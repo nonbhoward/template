@@ -73,6 +73,7 @@ for feature, feature_components in features_linked.items():
 
 
 # build and deploy unlinked features
+# FIXME reorder sequence to prioritize project > feature for clearer log output
 for feature, feature_components in features_unlinked.items():
     deploy = False
     deployment_path = None
