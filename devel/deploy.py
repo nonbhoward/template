@@ -5,12 +5,12 @@ import sys
 import yaml
 
 # content roots for terminal parent
-print(f'set content roots')
+print(f'SET CONTENT ROOTS')
 # FIXME development note,
 # FIXME  this creates an execution dependency on this script's location.
 # FIXME  at this time i am not aware of an improved method
 sys.path.append(str(Path(os.getcwd()).parent))
-print(f'\tcwd is {os.getcwd()}')
+print(f'\tCWD={os.getcwd()}')
 for path in sys.path:
     print(f'\tsys.path contains {path}')
 

@@ -1,20 +1,20 @@
 #!/bin/bash
 source "$(dirname "$0")/common/shell.sh"
 
-# startup check, defining paths to elements
-## announce cwd to user
+# definitions
 echo "PATH INIT"
 CWD=$(dirname "$0")
 echo -e "\tCWD=$CWD"
+echo -e "\tPWD=$PWD"
 path_to_devel="$CWD/devel"
 path_to_deploy="$path_to_devel/deploy.py"
 path_to_venv="$CWD/venv"
 path_to_interpreter="$CWD/venv/bin/python"
 
 ## change cwd to script directory
-execute "cd $path_to_devel" "CHANGE CWD TO DEVEL"
+execute "cd $path_to_devel" "CHANGE PWD TO DEVEL"
 echo -e "\tCWD=$CWD"
-
+echo -e "\tPWD=$PWD"
 ## check ./devel exists
 dir_exist "$path_to_devel"
 ## check ./venv exists
