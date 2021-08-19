@@ -43,7 +43,10 @@ class CacheDataHandler:
         self._data = dict()
         self._filepath = cache_filepath
         self._readable = False
-        if not self.configuration.get('seconds until stale', None):
+        if self.configuration.get('seconds until stale', None):
+            age_cache_stale = self.configuration.get('seconds until stale')
+            self._seconds_until_stale = age_cache_stale
+        else:
             self._seconds_until_stale = DEFAULT.AGE_CACHE_STALE
         self._type = cache_type
         if os.path.exists(self.filepath):
