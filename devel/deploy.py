@@ -39,6 +39,7 @@ for project, project_path in projects.items():
     if project_path == source_project:
         continue  # skip self
     if os.path.exists(path_to_target_deployment):
+        # FIXME this double prints on deployment script
         print(f'target project identified as {source_project}')
         with open(path_to_target_deployment, 'r') as d_cfg:
             deployment_config = yaml.safe_load(d_cfg)
